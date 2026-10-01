@@ -24,6 +24,19 @@ MIN_HEIGHT = 0.009259
 
 BAR_SAMPLE = list(range(0, 48, 2))
 
+# User's last manual keyframe values at f101 (for smooth transition)
+BAR_F101 = {
+    1: 0.01206, 2: 0.015414, 3: 0.017778, 4: 0.029128,
+    5: 0.039068, 6: 0.052804, 7: 0.069738, 8: 0.0774,
+    9: 0.09684, 10: 0.122308, 11: 0.142511, 12: 0.148399,
+    13: 0.154792, 14: 0.141608, 15: 0.128237, 16: 0.126733,
+    17: 0.102532, 18: 0.079547, 19: 0.053694, 20: 0.037925,
+    21: 0.030115, 22: 0.02132, 23: 0.016491, 24: 0.013051,
+}
+
+# Transition blend frames after user's last keyframe
+TRANSITION_FRAMES = 12  # blend over 12 frames (f104-f116)
+
 BAR_PEAKS = {
     1: 0.01239,
     2: 0.014278,
@@ -105,6 +118,7 @@ def generate_voice_keyframes(waveform, bar_num):
     wf_min = min(all_heights) if all_heights else 10.0
 
     keyframes = []
+    user_last_val = BAR_F101[bar_num]
 
     for f in range(VOICE_REACT_START, VOICE_END + 1, 3):
         raw_h = get_height(waveform, max(0, f - ripple), bar_idx)
@@ -116,9 +130,18 @@ def generate_voice_keyframes(waveform, bar_num):
             norm = 0.5
         norm = max(0.0, min(1.0, norm))
 
-        baseline = max(MIN_HEIGHT, peak * 0.35)
+        # Higher baseline (50%) so bars stay energetic
+        baseline = max(MIN_HEIGHT, peak * 0.50)
         h_norm = baseline + norm * (peak - baseline)
         h_norm = max(MIN_HEIGHT, h_norm)
+
+        # Smooth transition: blend from user's last value into voice data
+        frames_since_start = f - VOICE_REACT_START
+        if frames_since_start < TRANSITION_FRAMES:
+            blend = frames_since_start / TRANSITION_FRAMES
+            blend = blend * blend * (3 - 2 * blend)  # smoothstep
+            h_norm = user_last_val + (h_norm - user_last_val) * blend
+
         keyframes.append((f, h_norm))
 
     last_voice_h = keyframes[-1][1] if keyframes else peak * 0.3
