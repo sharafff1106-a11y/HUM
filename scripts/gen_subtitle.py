@@ -2,9 +2,9 @@
 """
 Generate subtitle text animation for hum video.
 
-Word-by-word gray text reveal with yellow underlines on task completion.
-Words drop from waveform center, land on transcript line, then slide left
-as task groups get consumed by cards.
+Voiceover: "Pitch deck by Friday, call Sam and the new feature idea."
+Word-by-word gray text reveal → yellow underline on task completion.
+All nodes connected in a clean merge chain with ViewInfo for flow layout.
 
 Output: fusion/subtitle_words.setting
 """
@@ -16,6 +16,7 @@ W, H = 1920, 1080
 GRAY_R, GRAY_G, GRAY_B = 0.557, 0.561, 0.545
 WHITE_R, WHITE_G, WHITE_B = 0.961, 0.953, 0.933
 AMBER_R, AMBER_G, AMBER_B = 1.0, 0.761, 0.294
+BG_R, BG_G, BG_B = 0.043, 0.047, 0.059
 
 BASELINE_Y = 760
 UL_Y = 800
@@ -33,447 +34,360 @@ def ny(px):
     return round(1.0 - px / H, 6)
 
 
+# Voiceover: "Pitch deck by Friday, call Sam and the new feature idea."
+# Tasks: 1="Pitch deck by Friday", 2="call Sam", 3="new feature idea"
+# group 0 = connector words ("and the") — fade out after card 2
 WORDS = [
-    {"name": "Pitch",   "text": "Pitch",   "x": 384,  "w": 153.7, "spawn": 126, "land": 134, "group": 1, "idx": 0},
-    {"name": "Deck",    "text": "deck",    "x": 555,  "w": 149.2, "spawn": 129, "land": 137, "group": 1, "idx": 1},
-    {"name": "By",      "text": "by",      "x": 721,  "w": 76.0,  "spawn": 132, "land": 140, "group": 1, "idx": 2},
-    {"name": "Friday",  "text": "Friday,", "x": 814,  "w": 209.8, "spawn": 135, "land": 143, "group": 1, "idx": 3},
-    {"name": "Call",    "text": "call",    "x": 1041, "w": 105.1, "spawn": 138, "land": 146, "group": 2, "idx": 4},
-    {"name": "Sam",     "text": "Sam",     "x": 1163, "w": 133.9, "spawn": 141, "land": 149, "group": 2, "idx": 5},
-    {"name": "And",     "text": "and",     "x": 1314, "w": 113.9, "spawn": 148, "land": 156, "group": 0, "idx": 6},
-    {"name": "That",    "text": "that",    "x": 1445, "w": 117.9, "spawn": 156, "land": 164, "group": 0, "idx": 7},
-    {"name": "New",     "text": "new",     "x": 1580, "w": 128.6, "spawn": 173, "land": 181, "group": 3, "idx": 8},
-    {"name": "Feature", "text": "feature", "x": 1725, "w": 219.9, "spawn": 183, "land": 191, "group": 3, "idx": 9},
-    {"name": "Idea",    "text": "idea.",   "x": 1962, "w": 148.4, "spawn": 194, "land": 202, "group": 3, "idx": 10},
+    {"name": "Pitch",   "text": "Pitch",   "x": 384,  "w": 153.7, "spawn": 126, "land": 134, "group": 1},
+    {"name": "Deck",    "text": "deck",    "x": 555,  "w": 149.2, "spawn": 129, "land": 137, "group": 1},
+    {"name": "By",      "text": "by",      "x": 721,  "w": 76.0,  "spawn": 132, "land": 140, "group": 1},
+    {"name": "Friday",  "text": "Friday,", "x": 814,  "w": 209.8, "spawn": 135, "land": 143, "group": 1},
+    {"name": "Call",    "text": "call",    "x": 1041, "w": 105.1, "spawn": 138, "land": 146, "group": 2},
+    {"name": "Sam",     "text": "Sam",     "x": 1163, "w": 133.9, "spawn": 141, "land": 149, "group": 2},
+    {"name": "And",     "text": "and",     "x": 1314, "w": 113.9, "spawn": 148, "land": 156, "group": 0},
+    {"name": "The",     "text": "the",     "x": 1445, "w": 93.0,  "spawn": 156, "land": 164, "group": 0},
+    {"name": "New",     "text": "new",     "x": 1555, "w": 128.6, "spawn": 173, "land": 181, "group": 3},
+    {"name": "Feature", "text": "feature", "x": 1701, "w": 219.9, "spawn": 183, "land": 191, "group": 3},
+    {"name": "Idea",    "text": "idea.",   "x": 1938, "w": 148.4, "spawn": 194, "land": 202, "group": 3},
 ]
 
-SLIDE1_START, SLIDE1_END = 168, 178
-SLIDE1_SHIFT = 1041 - 384
+# Add idx for position calc
+for i, w in enumerate(WORDS):
+    w["idx"] = i
 
+# Slide 1: after card 1 lifts, remaining words shift left so "call" → x=384
+SLIDE1_START, SLIDE1_END = 168, 178
+SLIDE1_SHIFT = 1041 - 384  # 657px
+
+# Slide 2: after card 2 lifts, "new feature idea" shift left so "new" → x=384
 SLIDE2_START, SLIDE2_END = 198, 208
 
+# "and the" connector words fade out
 AND_FADE_START, AND_FADE_END = 196, 201
 
+# Underline positions (after their respective slides have landed)
 UNDERLINES = [
     {
         "name": "UL1", "start": 152, "end": 158,
-        "left": 384, "right": 384 + 153.7 + SPACE_W + 149.2 + SPACE_W + 76.0 + SPACE_W + 209.8,
+        "left": 384,
+        "right": 384 + 153.7 + SPACE_W + 149.2 + SPACE_W + 76.0 + SPACE_W + 209.8,
     },
     {
         "name": "UL2", "start": 180, "end": 186,
-        "left": 384, "right": 384 + 105.1 + SPACE_W + 133.9,
+        "left": 384,
+        "right": 384 + 105.1 + SPACE_W + 133.9,
     },
     {
         "name": "UL3", "start": 210, "end": 216,
-        "left": 384, "right": 384 + 128.6 + SPACE_W + 219.9 + SPACE_W + 148.4,
+        "left": 384,
+        "right": 384 + 128.6 + SPACE_W + 219.9 + SPACE_W + 148.4,
     },
 ]
 
-CARET_BLINK_START = 126
-CARET_BLINK_END = 214
 CARET_GAP = 12
 CARET_HEIGHT_PX = 56
 CARET_WIDTH_PX = 2
+CARET_BLINK_START = 126
+CARET_BLINK_END = 214
 
 
 def kf(frame, value):
     return f"[{frame}] = {{ {value}, RH = {{ 0.333, 0.7 }}, LH = {{ -0.333, 0.0 }} }}"
 
-def kf_smooth(frame, value):
-    lh_f = frame - 0.999899983406
-    rh_f = frame + 0.999899983406
-    return (f"[{frame}] = {{ {value:.6f}, "
-            f"LH = {{ {lh_f:.12g}, {value:.6f} }}, "
-            f"RH = {{ {rh_f:.12g}, {value:.6f} }}, "
-            f"Flags = {{ {{ SCEF_IS_SMOOTH, SCNF_IS_SMOOTH }} }} }}")
+
+def pos_kf(frame, x_px, y_px):
+    return f"[{frame}] = {{ {nx(x_px)}, {ny(y_px)}, RH = {{ 0.333, 0.7 }}, LH = {{ -0.333, 0.0 }} }}"
 
 
-def word_center_x(word):
-    return nx(word["x"] + word["w"] / 2)
-
-def word_center_x_px(word):
+def word_cx(word):
     return word["x"] + word["w"] / 2
 
 
-def gen_word_pos_keyframes(word):
-    """Generate position Path keyframes for a word."""
-    spawn_x = nx(SPAWN_X)
-    spawn_y = ny(SPAWN_Y)
-    land_x = word_center_x(word)
-    land_y = ny(BASELINE_Y)
+def gen_word_nodes(word):
+    """Generate Text+ node + all its spline/path children for one word."""
+    n = f"Word{word['name']}"
     idx = word["idx"]
-    grp = word["group"]
+    cx = word_cx(word)
 
-    kfs = []
-    kfs.append(f"[{word['spawn']}] = {{ {spawn_x}, {spawn_y}, RH = {{ 0.333, 0.7 }}, LH = {{ -0.333, 0.0 }} }}")
-    kfs.append(f"[{word['land']}] = {{ {land_x}, {land_y}, RH = {{ 0.333, 0.7 }}, LH = {{ -0.333, 0.0 }} }}")
+    # Position keyframes
+    pos_kfs = [pos_kf(word["spawn"], SPAWN_X, SPAWN_Y)]
+    pos_kfs.append(pos_kf(word["land"], cx, BASELINE_Y))
 
     if idx >= 4:
-        slide1_x = nx(word_center_x_px(word) - SLIDE1_SHIFT)
-        kfs.append(f"[{SLIDE1_START}] = {{ {land_x}, {land_y}, RH = {{ 0.333, 0.7 }}, LH = {{ -0.333, 0.0 }} }}")
-        kfs.append(f"[{SLIDE1_END}] = {{ {slide1_x}, {land_y}, RH = {{ 0.333, 0.7 }}, LH = {{ -0.333, 0.0 }} }}")
+        slid1_cx = cx - SLIDE1_SHIFT
+        pos_kfs.append(pos_kf(SLIDE1_START, cx, BASELINE_Y))
+        pos_kfs.append(pos_kf(SLIDE1_END, slid1_cx, BASELINE_Y))
 
         if idx >= 8:
-            after_s1_px = word_center_x_px(word) - SLIDE1_SHIFT
-            slide2_shift = (1580 - SLIDE1_SHIFT) - 384
-            slide2_x = nx(after_s1_px - slide2_shift)
-            kfs.append(f"[{SLIDE2_START}] = {{ {slide1_x}, {land_y}, RH = {{ 0.333, 0.7 }}, LH = {{ -0.333, 0.0 }} }}")
-            kfs.append(f"[{SLIDE2_END}] = {{ {slide2_x}, {land_y}, RH = {{ 0.333, 0.7 }}, LH = {{ -0.333, 0.0 }} }}")
+            s2_shift = (1555 - SLIDE1_SHIFT) - 384
+            slid2_cx = slid1_cx - s2_shift
+            pos_kfs.append(pos_kf(SLIDE2_START, slid1_cx, BASELINE_Y))
+            pos_kfs.append(pos_kf(SLIDE2_END, slid2_cx, BASELINE_Y))
 
-    return kfs
-
-
-def gen_word_opacity_keyframes(word):
-    """Generate opacity BezierSpline keyframes."""
-    kfs = []
-    kfs.append(kf(GLOBAL_IN, 0))
-    kfs.append(kf(word["spawn"], 0))
-    kfs.append(kf(word["spawn"] + 4, 1))
-
+    # Opacity keyframes
+    op_kfs = [kf(GLOBAL_IN, 0), kf(word["spawn"], 0), kf(word["spawn"] + 4, 1)]
     if word["group"] == 0:
-        kfs.append(kf(AND_FADE_START, 1))
-        kfs.append(kf(AND_FADE_END, 0))
+        op_kfs += [kf(AND_FADE_START, 1), kf(AND_FADE_END, 0)]
 
-    return kfs
+    # Color keyframes (gray → white)
+    color_hold = word["land"] + 8
+    color_done = color_hold + 6
+    colors = {
+        "R": (GRAY_R, WHITE_R),
+        "G": (GRAY_G, WHITE_G),
+        "B": (GRAY_B, WHITE_B),
+    }
 
+    out = []
 
-def gen_color_keyframes(word, channel_idx):
-    """Generate color channel BezierSpline keyframes (0=R, 1=G, 2=B)."""
-    gray = (GRAY_R, GRAY_G, GRAY_B)[channel_idx]
-    white = (WHITE_R, WHITE_G, WHITE_B)[channel_idx]
-    color_start = word["land"] + 8
-    color_end = color_start + 6
+    # TextPlus node
+    out.append(f"        {n} = TextPlus {{")
+    out.append(f"            Inputs = {{")
+    out.append(f'                StyledText = Input {{ Value = "{word["text"]}", }},')
+    out.append(f'                Font = Input {{ Value = "Inter", }},')
+    out.append(f'                Style = Input {{ Value = "Medium", }},')
+    out.append(f"                Size = Input {{ Value = {FONT_SIZE}, }},")
+    out.append(f'                Center = Input {{ SourceOp = "{n}Pos", Source = "Value", }},')
+    out.append(f'                Red1 = Input {{ SourceOp = "{n}R", Source = "Value", }},')
+    out.append(f'                Green1 = Input {{ SourceOp = "{n}G", Source = "Value", }},')
+    out.append(f'                Blue1 = Input {{ SourceOp = "{n}B", Source = "Value", }},')
+    out.append(f'                Opacity = Input {{ SourceOp = "{n}Opacity", Source = "Value", }},')
+    out.append(f"            }},")
+    out.append(f"            ViewInfo = OperatorInfo {{ Pos = {{ {770 + idx * 110}, 16.5 }} }},")
+    out.append(f"        }},")
 
-    kfs = []
-    kfs.append(kf(word["spawn"], gray))
-    kfs.append(kf(color_start, gray))
-    kfs.append(kf(color_end, white))
-    return kfs
-
-
-def gen_word_block(word):
-    """Generate all Fusion nodes for one word."""
-    name = f"Word{word['name']}"
-    lines = []
-
-    lines.append(f"        {name} = TextPlus {{")
-    lines.append(f"            Inputs = {{")
-    lines.append(f'                StyledText = Input {{ Value = "{word["text"]}", }},')
-    lines.append(f'                Font = Input {{ Value = "Inter", }},')
-    lines.append(f'                Style = Input {{ Value = "Medium", }},')
-    lines.append(f"                Size = Input {{ Value = {FONT_SIZE}, }},")
-    lines.append(f"                Center = Input {{")
-    lines.append(f'                    SourceOp = "{name}Pos",')
-    lines.append(f'                    Source = "Value",')
-    lines.append(f"                }},")
-    lines.append(f"                Red1 = Input {{")
-    lines.append(f'                    SourceOp = "{name}R",')
-    lines.append(f'                    Source = "Value",')
-    lines.append(f"                }},")
-    lines.append(f"                Green1 = Input {{")
-    lines.append(f'                    SourceOp = "{name}G",')
-    lines.append(f'                    Source = "Value",')
-    lines.append(f"                }},")
-    lines.append(f"                Blue1 = Input {{")
-    lines.append(f'                    SourceOp = "{name}B",')
-    lines.append(f'                    Source = "Value",')
-    lines.append(f"                }},")
-    lines.append(f"                Opacity = Input {{")
-    lines.append(f'                    SourceOp = "{name}Opacity",')
-    lines.append(f'                    Source = "Value",')
-    lines.append(f"                }},")
-    lines.append(f"            }},")
-    lines.append(f"        }},")
-    lines.append(f"")
-
-    pos_kfs = gen_word_pos_keyframes(word)
-    lines.append(f"        {name}Pos = Path {{")
-    lines.append(f"            KeyFrames = {{")
+    # Path
+    out.append(f"        {n}Pos = Path {{")
+    out.append(f"            KeyFrames = {{")
     for k in pos_kfs:
-        lines.append(f"                {k},")
-    lines.append(f"            }}")
-    lines.append(f"        }},")
-    lines.append(f"")
+        out.append(f"                {k},")
+    out.append(f"            }}")
+    out.append(f"        }},")
 
-    op_kfs = gen_word_opacity_keyframes(word)
-    lines.append(f"        {name}Opacity = BezierSpline {{")
-    lines.append(f"            KeyFrames = {{")
+    # Opacity
+    out.append(f"        {n}Opacity = BezierSpline {{")
+    out.append(f"            KeyFrames = {{")
     for k in op_kfs:
-        lines.append(f"                {k},")
-    lines.append(f"            }}")
-    lines.append(f"        }},")
-    lines.append(f"")
+        out.append(f"                {k},")
+    out.append(f"            }}")
+    out.append(f"        }},")
 
-    for ch_name, ch_idx in [("R", 0), ("G", 1), ("B", 2)]:
-        c_kfs = gen_color_keyframes(word, ch_idx)
-        lines.append(f"        {name}{ch_name} = BezierSpline {{")
-        lines.append(f"            KeyFrames = {{")
-        for k in c_kfs:
-            lines.append(f"                {k},")
-        lines.append(f"            }}")
-        lines.append(f"        }},")
-        lines.append(f"")
+    # Color channels
+    for ch, (gray_v, white_v) in colors.items():
+        out.append(f"        {n}{ch} = BezierSpline {{")
+        out.append(f"            KeyFrames = {{")
+        out.append(f"                {kf(word['spawn'], gray_v)},")
+        out.append(f"                {kf(color_hold, gray_v)},")
+        out.append(f"                {kf(color_done, white_v)},")
+        out.append(f"            }}")
+        out.append(f"        }},")
 
-    return "\n".join(lines)
-
-
-def gen_underline_block(ul):
-    """Generate underline mask + background nodes."""
-    name = ul["name"]
-    center_x = nx((ul["left"] + ul["right"]) / 2)
-    center_y = ny(UL_Y)
-    final_width = nx(ul["right"] - ul["left"])
-    height = round(4 / H, 6)
-
-    lines = []
-
-    lines.append(f"        {name}Mask = RectangleMask {{")
-    lines.append(f"            Inputs = {{")
-    lines.append(f"                Center = Input {{ Value = {{ {center_x}, {center_y} }}, }},")
-    lines.append(f"                Width = Input {{")
-    lines.append(f'                    SourceOp = "{name}Width",')
-    lines.append(f'                    Source = "Value",')
-    lines.append(f"                }},")
-    lines.append(f"                Height = Input {{ Value = {height}, }},")
-    lines.append(f"                CornerRadius = Input {{ Value = 1.0, }},")
-    lines.append(f"            }},")
-    lines.append(f"        }},")
-    lines.append(f"")
-
-    lines.append(f"        {name}Width = BezierSpline {{")
-    lines.append(f"            KeyFrames = {{")
-    lines.append(f"                {kf(ul['start'], 0)},")
-    lines.append(f"                {kf(ul['end'], final_width)},")
-    lines.append(f"            }}")
-    lines.append(f"        }},")
-    lines.append(f"")
-
-    lines.append(f"        {name}Bg = Background {{")
-    lines.append(f"            Inputs = {{")
-    lines.append(f"                GlobalIn = Input {{ Value = {GLOBAL_IN}, }},")
-    lines.append(f"                GlobalOut = Input {{ Value = {GLOBAL_OUT}, }},")
-    lines.append(f"                Width = Input {{ Value = {W}, }},")
-    lines.append(f"                Height = Input {{ Value = {H}, }},")
-    lines.append(f"                TopLeftRed = Input {{ Value = {AMBER_R}, }},")
-    lines.append(f"                TopLeftGreen = Input {{ Value = {AMBER_G}, }},")
-    lines.append(f"                TopLeftBlue = Input {{ Value = {AMBER_B}, }},")
-    lines.append(f"                EffectMask = Input {{")
-    lines.append(f'                    SourceOp = "{name}Mask",')
-    lines.append(f'                    Source = "Mask",')
-    lines.append(f"                }},")
-    lines.append(f"            }},")
-    lines.append(f"        }},")
-    lines.append(f"")
-
-    return "\n".join(lines)
+    out.append("")
+    return "\n".join(out)
 
 
-def gen_caret_block():
-    """Generate blinking caret that follows the last landed word."""
-    caret_y = ny(BASELINE_Y)
-    caret_w = nx(CARET_WIDTH_PX)
-    caret_h = round(CARET_HEIGHT_PX / H, 6)
+def gen_underline_nodes(ul, flow_x):
+    """Generate underline Background + RectangleMask."""
+    n = ul["name"]
+    cx = nx((ul["left"] + ul["right"]) / 2)
+    cy = ny(UL_Y)
+    fw = nx(ul["right"] - ul["left"])
+    h = round(4 / H, 6)
 
-    caret_positions = []
-    last_right = WORDS[0]["x"]
-    for word in WORDS:
-        right_px = word["x"] + word["w"] + CARET_GAP + CARET_WIDTH_PX / 2
-        caret_positions.append((word["land"], right_px))
-        if word["group"] == 0:
-            continue
+    out = []
+    out.append(f"        {n}Mask = RectangleMask {{")
+    out.append(f"            Inputs = {{")
+    out.append(f"                Center = Input {{ Value = {{ {cx}, {cy} }}, }},")
+    out.append(f'                Width = Input {{ SourceOp = "{n}Width", Source = "Value", }},')
+    out.append(f"                Height = Input {{ Value = {h}, }},")
+    out.append(f"                CornerRadius = Input {{ Value = 1.0, }},")
+    out.append(f"            }},")
+    out.append(f"        }},")
 
-    lines = []
+    out.append(f"        {n}Width = BezierSpline {{")
+    out.append(f"            KeyFrames = {{")
+    out.append(f"                {kf(ul['start'], 0)},")
+    out.append(f"                {kf(ul['end'], fw)},")
+    out.append(f"            }}")
+    out.append(f"        }},")
 
-    lines.append(f"        CaretMask = RectangleMask {{")
-    lines.append(f"            Inputs = {{")
-    lines.append(f"                Center = Input {{")
-    lines.append(f'                    SourceOp = "CaretPos",')
-    lines.append(f'                    Source = "Value",')
-    lines.append(f"                }},")
-    lines.append(f"                Width = Input {{ Value = {caret_w}, }},")
-    lines.append(f"                Height = Input {{ Value = {caret_h}, }},")
-    lines.append(f"            }},")
-    lines.append(f"        }},")
-    lines.append(f"")
+    out.append(f"        {n}Bg = Background {{")
+    out.append(f"            Inputs = {{")
+    out.append(f"                GlobalIn = Input {{ Value = {GLOBAL_IN}, }},")
+    out.append(f"                GlobalOut = Input {{ Value = {GLOBAL_OUT}, }},")
+    out.append(f"                Width = Input {{ Value = {W}, }},")
+    out.append(f"                Height = Input {{ Value = {H}, }},")
+    out.append(f"                TopLeftRed = Input {{ Value = {AMBER_R}, }},")
+    out.append(f"                TopLeftGreen = Input {{ Value = {AMBER_G}, }},")
+    out.append(f"                TopLeftBlue = Input {{ Value = {AMBER_B}, }},")
+    out.append(f'                EffectMask = Input {{ SourceOp = "{n}Mask", Source = "Mask", }},')
+    out.append(f"            }},")
+    out.append(f"            ViewInfo = OperatorInfo {{ Pos = {{ {flow_x}, 16.5 }} }},")
+    out.append(f"        }},")
+    out.append("")
+    return "\n".join(out)
 
-    lines.append(f"        CaretPos = Path {{")
-    lines.append(f"            KeyFrames = {{")
 
-    cum_x = {}
+def gen_caret_nodes(flow_x):
+    """Generate caret Background + RectangleMask + blink spline."""
+    cy = ny(BASELINE_Y)
+    cw = nx(CARET_WIDTH_PX)
+    ch = round(CARET_HEIGHT_PX / H, 6)
+
+    # Caret x jumps to right edge of each word as it lands
+    positions = []
     for word in WORDS:
         right = word["x"] + word["w"] + CARET_GAP + 1
-        cum_x[word["idx"]] = right
+        positions.append((word["land"], right))
 
-    positions_over_time = []
+    # After slide 1
+    positions.append((SLIDE1_START, WORDS[5]["x"] + WORDS[5]["w"] + CARET_GAP + 1))
+    sam_slid = (WORDS[5]["x"] + WORDS[5]["w"] + CARET_GAP + 1) - SLIDE1_SHIFT
+    positions.append((SLIDE1_END, sam_slid))
 
-    positions_over_time.append((134, cum_x[0]))
-    positions_over_time.append((137, cum_x[1]))
-    positions_over_time.append((140, cum_x[2]))
-    positions_over_time.append((143, cum_x[3]))
-    positions_over_time.append((146, cum_x[4]))
-    positions_over_time.append((149, cum_x[5]))
+    # After "and" and "the" land (already shifted by slide1)
+    and_slid = (WORDS[6]["x"] + WORDS[6]["w"] + CARET_GAP + 1) - SLIDE1_SHIFT
+    positions.append((WORDS[6]["land"] + 2, and_slid))
+    the_slid = (WORDS[7]["x"] + WORDS[7]["w"] + CARET_GAP + 1) - SLIDE1_SHIFT
+    positions.append((WORDS[7]["land"] + 2, the_slid))
 
-    positions_over_time.append((SLIDE1_START, cum_x[5]))
-    slid1_sam_right = cum_x[5] - SLIDE1_SHIFT
-    positions_over_time.append((SLIDE1_END, slid1_sam_right))
+    # After slide 2
+    s2_shift = (1555 - SLIDE1_SHIFT) - 384
+    for word in WORDS[8:]:
+        right_s2 = (word["x"] + word["w"] + CARET_GAP + 1) - SLIDE1_SHIFT - s2_shift
+        positions.append((word["land"] + 2, right_s2))
 
-    positions_over_time.append((156, slid1_sam_right))  # "and" lands
+    # Deduplicate and sort
+    seen = {}
+    for f, px in positions:
+        seen[f] = px
+    positions = sorted(seen.items())
 
-    and_right = (1314 + 113.9 + CARET_GAP + 1) - SLIDE1_SHIFT
-    positions_over_time.append((158, and_right))
+    out = []
+    out.append(f"        CaretMask = RectangleMask {{")
+    out.append(f"            Inputs = {{")
+    out.append(f'                Center = Input {{ SourceOp = "CaretPos", Source = "Value", }},')
+    out.append(f"                Width = Input {{ Value = {cw}, }},")
+    out.append(f"                Height = Input {{ Value = {ch}, }},")
+    out.append(f"            }},")
+    out.append(f"        }},")
 
-    that_right = (1445 + 117.9 + CARET_GAP + 1) - SLIDE1_SHIFT
-    positions_over_time.append((164, that_right))
+    out.append(f"        CaretPos = Path {{")
+    out.append(f"            KeyFrames = {{")
+    for f, px in positions:
+        out.append(f"                {pos_kf(f, px, BASELINE_Y)},")
+    out.append(f"            }}")
+    out.append(f"        }},")
 
-    positions_over_time.append((181, that_right))  # "new" lands after and/that
+    out.append(f"        CaretBg = Background {{")
+    out.append(f"            Inputs = {{")
+    out.append(f"                GlobalIn = Input {{ Value = {GLOBAL_IN}, }},")
+    out.append(f"                GlobalOut = Input {{ Value = {GLOBAL_OUT}, }},")
+    out.append(f"                Width = Input {{ Value = {W}, }},")
+    out.append(f"                Height = Input {{ Value = {H}, }},")
+    out.append(f"                TopLeftRed = Input {{ Value = {AMBER_R}, }},")
+    out.append(f"                TopLeftGreen = Input {{ Value = {AMBER_G}, }},")
+    out.append(f"                TopLeftBlue = Input {{ Value = {AMBER_B}, }},")
+    out.append(f'                EffectMask = Input {{ SourceOp = "CaretMask", Source = "Mask", }},')
+    out.append(f'                Opacity = Input {{ SourceOp = "CaretBlink", Source = "Value", }},')
+    out.append(f"            }},")
+    out.append(f"            ViewInfo = OperatorInfo {{ Pos = {{ {flow_x}, 16.5 }} }},")
+    out.append(f"        }},")
 
-    slide2_shift = (1580 - SLIDE1_SHIFT) - 384
-    new_right_s2 = (1580 + 128.6 + CARET_GAP + 1) - SLIDE1_SHIFT - slide2_shift
-    positions_over_time.append((SLIDE2_END, new_right_s2))
-
-    feat_right_s2 = (1725 + 219.9 + CARET_GAP + 1) - SLIDE1_SHIFT - slide2_shift
-    positions_over_time.append((191, feat_right_s2))
-
-    idea_right_s2 = (1962 + 148.4 + CARET_GAP + 1) - SLIDE1_SHIFT - slide2_shift
-    positions_over_time.append((202, idea_right_s2))
-
-    positions_over_time.sort(key=lambda x: x[0])
-
-    seen = set()
-    deduped = []
-    for f, px in positions_over_time:
-        if f not in seen:
-            seen.add(f)
-            deduped.append((f, px))
-        else:
-            for i, (ef, _) in enumerate(deduped):
-                if ef == f:
-                    deduped[i] = (f, px)
-    deduped.sort(key=lambda x: x[0])
-
-    for f, px in deduped:
-        lines.append(f"                [{f}] = {{ {nx(px)}, {caret_y}, RH = {{ 0.333, 0.7 }}, LH = {{ -0.333, 0.0 }} }},")
-
-    lines.append(f"            }}")
-    lines.append(f"        }},")
-    lines.append(f"")
-
-    lines.append(f"        CaretBg = Background {{")
-    lines.append(f"            Inputs = {{")
-    lines.append(f"                GlobalIn = Input {{ Value = {GLOBAL_IN}, }},")
-    lines.append(f"                GlobalOut = Input {{ Value = {GLOBAL_OUT}, }},")
-    lines.append(f"                Width = Input {{ Value = {W}, }},")
-    lines.append(f"                Height = Input {{ Value = {H}, }},")
-    lines.append(f"                TopLeftRed = Input {{ Value = {AMBER_R}, }},")
-    lines.append(f"                TopLeftGreen = Input {{ Value = {AMBER_G}, }},")
-    lines.append(f"                TopLeftBlue = Input {{ Value = {AMBER_B}, }},")
-    lines.append(f"                EffectMask = Input {{")
-    lines.append(f'                    SourceOp = "CaretMask",')
-    lines.append(f'                    Source = "Mask",')
-    lines.append(f"                }},")
-    lines.append(f"                Opacity = Input {{")
-    lines.append(f'                    SourceOp = "CaretBlink",')
-    lines.append(f'                    Source = "Value",')
-    lines.append(f"                }},")
-    lines.append(f"            }},")
-    lines.append(f"        }},")
-    lines.append(f"")
-
-    blink_on = 12
-    blink_off = 12
-    lines.append(f"        CaretBlink = BezierSpline {{")
-    lines.append(f"            KeyFrames = {{")
-    lines.append(f"                {kf(GLOBAL_IN, 0)},")
+    # Blink: 12f on, 12f off (step function)
+    out.append(f"        CaretBlink = BezierSpline {{")
+    out.append(f"            KeyFrames = {{")
+    out.append(f"                {kf(GLOBAL_IN, 0)},")
     f = CARET_BLINK_START
     while f <= CARET_BLINK_END:
-        lines.append(f"                {kf(f, 1)},")
-        lines.append(f"                {kf(f + blink_on, 1)},")
-        lines.append(f"                {kf(f + blink_on + 1, 0)},")
-        lines.append(f"                {kf(f + blink_on + blink_off, 0)},")
-        f += blink_on + blink_off
-    lines.append(f"            }}")
-    lines.append(f"        }},")
-    lines.append(f"")
+        out.append(f"                {kf(f, 1)},")
+        out.append(f"                {kf(f + 12, 1)},")
+        out.append(f"                {kf(f + 13, 0)},")
+        out.append(f"                {kf(f + 24, 0)},")
+        f += 24
+    out.append(f"            }}")
+    out.append(f"        }},")
+    out.append("")
+    return "\n".join(out)
 
-    return "\n".join(lines)
 
-
-def gen_merge_chain():
-    """Generate merge chain connecting all elements."""
-    elements = []
-    for word in WORDS:
-        elements.append(f"Word{word['name']}")
-    for ul in UNDERLINES:
-        elements.append(f"{ul['name']}Bg")
-    elements.append("CaretBg")
-
-    lines = []
-    prev = "SubtitleBg"
-
-    for i, elem in enumerate(elements):
-        merge_name = f"SubMerge{i + 1}"
-        lines.append(f"        {merge_name} = Merge {{")
-        lines.append(f"            Inputs = {{")
-        lines.append(f"                Background = Input {{")
-        lines.append(f'                    SourceOp = "{prev}",')
-        lines.append(f'                    Source = "Output",')
-        lines.append(f"                }},")
-        lines.append(f"                Foreground = Input {{")
-        lines.append(f'                    SourceOp = "{elem}",')
-        lines.append(f'                    Source = "Output",')
-        lines.append(f"                }},")
-        lines.append(f"            }},")
-        lines.append(f"        }},")
-        lines.append(f"")
-        prev = merge_name
-
-    return "\n".join(lines), prev
+def gen_merge(merge_name, bg_op, fg_op, flow_x, flow_y=49.5):
+    """Generate one Merge node."""
+    return "\n".join([
+        f"        {merge_name} = Merge {{",
+        f"            Inputs = {{",
+        f'                Background = Input {{ SourceOp = "{bg_op}", Source = "Output", }},',
+        f'                Foreground = Input {{ SourceOp = "{fg_op}", Source = "Output", }},',
+        f"            }},",
+        f"            ViewInfo = OperatorInfo {{ Pos = {{ {flow_x}, {flow_y} }} }},",
+        f"        }},",
+    ])
 
 
 def generate_setting():
-    parts = []
+    lines = []
+    lines.append("{")
+    lines.append("    Tools = ordered() {")
+    lines.append('        -- ═══ SUBTITLE TEXT: word-by-word reveal + yellow underlines ═══')
+    lines.append('        -- Voiceover: "Pitch deck by Friday, call Sam and the new feature idea."')
+    lines.append("        -- Voice starts f102. Words appear f126+. Underlines on task completion.")
+    lines.append("")
 
-    parts.append("""{
-    Tools = ordered() {
-        -- Subtitle text animation: word-by-word reveal + yellow underlines
-        -- Words drop from waveform center (960,260) to transcript line (y=760)
-        -- Gray words turn white after landing
-        -- Yellow underline grows left-to-right when each task completes
-        -- Three tasks: "Pitch deck by Friday", "call Sam", "new feature idea"
+    # Background
+    lines.append("        SubtitleBg = Background {")
+    lines.append("            Inputs = {")
+    lines.append(f"                GlobalIn = Input {{ Value = {GLOBAL_IN}, }},")
+    lines.append(f"                GlobalOut = Input {{ Value = {GLOBAL_OUT}, }},")
+    lines.append(f"                Width = Input {{ Value = {W}, }},")
+    lines.append(f"                Height = Input {{ Value = {H}, }},")
+    lines.append("                UseFrameFormatSettings = Input { Value = 1, },")
+    lines.append(f"                TopLeftRed = Input {{ Value = {BG_R}, }},")
+    lines.append(f"                TopLeftGreen = Input {{ Value = {BG_G}, }},")
+    lines.append(f"                TopLeftBlue = Input {{ Value = {BG_B}, }},")
+    lines.append("                TopLeftAlpha = Input { Value = 0, },")
+    lines.append("            },")
+    lines.append("            ViewInfo = OperatorInfo { Pos = { 660, 49.5 } },")
+    lines.append("        },")
+    lines.append("")
 
-        SubtitleBg = Background {
-            Inputs = {""")
-    parts.append(f"                GlobalIn = Input {{ Value = {GLOBAL_IN}, }},")
-    parts.append(f"                GlobalOut = Input {{ Value = {GLOBAL_OUT}, }},")
-    parts.append(f"                Width = Input {{ Value = {W}, }},")
-    parts.append(f"                Height = Input {{ Value = {H}, }},")
-    parts.append("""                UseFrameFormatSettings = Input { Value = 1, },
-                TopLeftRed = Input { Value = 0.043, },
-                TopLeftGreen = Input { Value = 0.047, },
-                TopLeftBlue = Input { Value = 0.059, },
-                TopLeftAlpha = Input { Value = 0, },
-            },
-        },
-""")
+    # All foreground elements in merge order
+    fg_elements = []
 
-    parts.append("        -- ─── Words ───")
+    # Words
+    lines.append("        -- ─── Words (11 Text+ nodes) ───")
     for word in WORDS:
-        parts.append(gen_word_block(word))
+        lines.append(gen_word_nodes(word))
+        fg_elements.append(f"Word{word['name']}")
 
-    parts.append("        -- ─── Underlines ───")
-    for ul in UNDERLINES:
-        parts.append(gen_underline_block(ul))
+    # Underlines
+    lines.append("        -- ─── Yellow underlines (3 tasks) ───")
+    ul_flow_x = 770 + len(WORDS) * 110
+    for i, ul in enumerate(UNDERLINES):
+        lines.append(gen_underline_nodes(ul, ul_flow_x + i * 110))
+        fg_elements.append(f"{ul['name']}Bg")
 
-    parts.append("        -- ─── Caret ───")
-    parts.append(gen_caret_block())
+    # Caret
+    lines.append("        -- ─── Blinking caret ───")
+    caret_flow_x = ul_flow_x + len(UNDERLINES) * 110
+    lines.append(gen_caret_nodes(caret_flow_x))
+    fg_elements.append("CaretBg")
 
-    parts.append("        -- ─── Merge chain ───")
-    merge_text, last_merge = gen_merge_chain()
-    parts.append(merge_text)
+    # Merge chain
+    lines.append("        -- ─── Merge chain (all connected) ───")
+    prev = "SubtitleBg"
+    for i, fg in enumerate(fg_elements):
+        merge_name = f"Mrg{i + 1}"
+        flow_x = 770 + i * 110
+        lines.append(gen_merge(merge_name, prev, fg, flow_x))
+        lines.append("")
+        prev = merge_name
 
-    parts.append(f'    }},\n\n    ActiveTool = "{last_merge}",\n}}')
+    lines.append("    },")
+    lines.append("")
+    lines.append(f'    ActiveTool = "{prev}",')
+    lines.append("}")
 
-    return "\n".join(parts)
+    return "\n".join(lines)
 
 
 def main():
@@ -487,25 +401,24 @@ def main():
     size_kb = out_path.stat().st_size / 1024
     print(f"Output: {out_path} ({size_kb:.1f} KB)")
     print()
+    print("Voiceover: \"Pitch deck by Friday, call Sam and the new feature idea.\"")
+    print("Voice starts at f102.")
+    print()
     print("Timeline:")
-    print("  f126–f149: Catch-up words drop from waveform center")
-    print("             Pitch(126), deck(129), by(132), Friday(135), call(138), Sam(141)")
-    print("  f148–f202: Live words drop with 12f lag after spoken")
-    print("             and(148), that(156), new(173), feature(183), idea(194)")
+    print("  f126–f141: Catch-up words drop from waveform center (960,260)")
+    print("             Pitch(126) deck(129) by(132) Friday(135) call(138) Sam(141)")
+    print("  f148–f202: Live words with 12f lag")
+    print("             and(148) the(156) new(173) feature(183) idea(194)")
     print("  f152–f158: Underline 1 — 'Pitch deck by Friday'")
     print("  f168–f178: Slide 1 — remaining words shift left")
     print("  f180–f186: Underline 2 — 'call Sam'")
-    print("  f196–f201: 'and that' fade out")
+    print("  f196–f201: 'and the' fade out")
     print("  f198–f208: Slide 2 — 'new feature idea' shifts left")
     print("  f210–f216: Underline 3 — 'new feature idea'")
     print("  f126–f214: Caret blinks (12f on / 12f off)")
     print()
-    print("Colors:")
-    print("  Words: gray (#8E8F8B) → white (#F5F3EE) over 6f after landing")
-    print("  Underlines: amber (#FFC24B)")
-    print("  Caret: amber (#FFC24B)")
-    print()
-    print("Drag subtitle_words.setting into Fusion to use.")
+    print("All nodes connected: SubtitleBg → Mrg1…Mrg15 → output")
+    print("ViewInfo positions set — nodes lay out cleanly in Fusion flow.")
 
 
 if __name__ == "__main__":
