@@ -1,0 +1,1175 @@
+{
+    Tools = ordered() {
+        -- Subtitle text animation: word-by-word reveal + yellow underlines
+        -- Words drop from waveform center (960,260) to transcript line (y=760)
+        -- Gray words turn white after landing
+        -- Yellow underline grows left-to-right when each task completes
+        -- Three tasks: "Pitch deck by Friday", "call Sam", "new feature idea"
+
+        SubtitleBg = Background {
+            Inputs = {
+                GlobalIn = Input { Value = 120, },
+                GlobalOut = Input { Value = 250, },
+                Width = Input { Value = 1920, },
+                Height = Input { Value = 1080, },
+                UseFrameFormatSettings = Input { Value = 1, },
+                TopLeftRed = Input { Value = 0.043, },
+                TopLeftGreen = Input { Value = 0.047, },
+                TopLeftBlue = Input { Value = 0.059, },
+                TopLeftAlpha = Input { Value = 0, },
+            },
+        },
+
+        -- ─── Words ───
+        WordPitch = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "Pitch", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordPitchPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordPitchR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordPitchG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordPitchB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordPitchOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordPitchPos = Path {
+            KeyFrames = {
+                [126] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [134] = { 0.240026, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordPitchOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [126] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [130] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordPitchR = BezierSpline {
+            KeyFrames = {
+                [126] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [142] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordPitchG = BezierSpline {
+            KeyFrames = {
+                [126] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [142] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordPitchB = BezierSpline {
+            KeyFrames = {
+                [126] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [142] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordDeck = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "deck", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordDeckPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordDeckR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordDeckG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordDeckB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordDeckOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordDeckPos = Path {
+            KeyFrames = {
+                [129] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [137] = { 0.327917, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordDeckOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [129] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [133] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordDeckR = BezierSpline {
+            KeyFrames = {
+                [129] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [145] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [151] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordDeckG = BezierSpline {
+            KeyFrames = {
+                [129] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [145] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [151] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordDeckB = BezierSpline {
+            KeyFrames = {
+                [129] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [145] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [151] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordBy = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "by", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordByPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordByR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordByG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordByB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordByOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordByPos = Path {
+            KeyFrames = {
+                [132] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [140] = { 0.395313, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordByOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [132] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [136] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordByR = BezierSpline {
+            KeyFrames = {
+                [132] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [154] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordByG = BezierSpline {
+            KeyFrames = {
+                [132] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [154] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordByB = BezierSpline {
+            KeyFrames = {
+                [132] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [154] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFriday = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "Friday,", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordFridayPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordFridayR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordFridayG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordFridayB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordFridayOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordFridayPos = Path {
+            KeyFrames = {
+                [135] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [143] = { 0.478594, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFridayOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [135] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [139] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFridayR = BezierSpline {
+            KeyFrames = {
+                [135] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [151] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [157] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFridayG = BezierSpline {
+            KeyFrames = {
+                [135] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [151] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [157] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFridayB = BezierSpline {
+            KeyFrames = {
+                [135] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [151] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [157] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordCall = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "call", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordCallPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordCallR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordCallG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordCallB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordCallOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordCallPos = Path {
+            KeyFrames = {
+                [138] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [146] = { 0.569557, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [168] = { 0.569557, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.22737, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordCallOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [138] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [142] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordCallR = BezierSpline {
+            KeyFrames = {
+                [138] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [154] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [160] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordCallG = BezierSpline {
+            KeyFrames = {
+                [138] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [154] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [160] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordCallB = BezierSpline {
+            KeyFrames = {
+                [138] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [154] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [160] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordSam = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "Sam", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordSamPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordSamR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordSamG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordSamB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordSamOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordSamPos = Path {
+            KeyFrames = {
+                [141] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [149] = { 0.640599, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [168] = { 0.640599, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.298411, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordSamOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [141] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [145] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordSamR = BezierSpline {
+            KeyFrames = {
+                [141] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [157] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [163] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordSamG = BezierSpline {
+            KeyFrames = {
+                [141] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [157] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [163] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordSamB = BezierSpline {
+            KeyFrames = {
+                [141] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [157] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [163] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordAnd = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "and", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordAndPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordAndR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordAndG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordAndB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordAndOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordAndPos = Path {
+            KeyFrames = {
+                [148] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [156] = { 0.714036, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [168] = { 0.714036, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.371849, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordAndOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [152] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [196] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [201] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordAndR = BezierSpline {
+            KeyFrames = {
+                [148] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [164] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [170] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordAndG = BezierSpline {
+            KeyFrames = {
+                [148] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [164] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [170] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordAndB = BezierSpline {
+            KeyFrames = {
+                [148] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [164] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [170] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordThat = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "that", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordThatPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordThatR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordThatG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordThatB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordThatOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordThatPos = Path {
+            KeyFrames = {
+                [156] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [164] = { 0.783307, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [168] = { 0.783307, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.44112, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordThatOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [156] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [160] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [196] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [201] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordThatR = BezierSpline {
+            KeyFrames = {
+                [156] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [172] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordThatG = BezierSpline {
+            KeyFrames = {
+                [156] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [172] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordThatB = BezierSpline {
+            KeyFrames = {
+                [156] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [172] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordNew = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "new", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordNewPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordNewR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordNewG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordNewB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordNewOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordNewPos = Path {
+            KeyFrames = {
+                [173] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [181] = { 0.856406, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [168] = { 0.856406, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.514219, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [198] = { 0.514219, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [208] = { 0.23349, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordNewOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [173] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [177] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordNewR = BezierSpline {
+            KeyFrames = {
+                [173] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [189] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [195] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordNewG = BezierSpline {
+            KeyFrames = {
+                [173] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [189] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [195] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordNewB = BezierSpline {
+            KeyFrames = {
+                [173] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [189] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [195] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFeature = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "feature", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordFeaturePos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordFeatureR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordFeatureG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordFeatureB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordFeatureOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordFeaturePos = Path {
+            KeyFrames = {
+                [183] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [191] = { 0.955703, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [168] = { 0.955703, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.613516, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [198] = { 0.613516, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [208] = { 0.332786, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFeatureOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [183] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [187] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFeatureR = BezierSpline {
+            KeyFrames = {
+                [183] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [199] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [205] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFeatureG = BezierSpline {
+            KeyFrames = {
+                [183] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [199] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [205] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordFeatureB = BezierSpline {
+            KeyFrames = {
+                [183] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [199] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [205] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordIdea = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "idea.", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordIdeaPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordIdeaR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordIdeaG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordIdeaB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordIdeaOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordIdeaPos = Path {
+            KeyFrames = {
+                [194] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [202] = { 1.060521, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [168] = { 1.060521, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.718333, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [198] = { 0.718333, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [208] = { 0.437604, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordIdeaOpacity = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [194] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [198] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordIdeaR = BezierSpline {
+            KeyFrames = {
+                [194] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [210] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [216] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordIdeaG = BezierSpline {
+            KeyFrames = {
+                [194] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [210] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [216] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        WordIdeaB = BezierSpline {
+            KeyFrames = {
+                [194] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [210] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [216] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        -- ─── Underlines ───
+        UL1Mask = RectangleMask {
+            Inputs = {
+                Center = Input { Value = { 0.366589, 0.259259 }, },
+                Width = Input {
+                    SourceOp = "UL1Width",
+                    Source = "Value",
+                },
+                Height = Input { Value = 0.003704, },
+                CornerRadius = Input { Value = 1.0, },
+            },
+        },
+
+        UL1Width = BezierSpline {
+            KeyFrames = {
+                [152] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [158] = { 0.333177, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        UL1Bg = Background {
+            Inputs = {
+                GlobalIn = Input { Value = 120, },
+                GlobalOut = Input { Value = 250, },
+                Width = Input { Value = 1920, },
+                Height = Input { Value = 1080, },
+                TopLeftRed = Input { Value = 1.0, },
+                TopLeftGreen = Input { Value = 0.761, },
+                TopLeftBlue = Input { Value = 0.294, },
+                EffectMask = Input {
+                    SourceOp = "UL1Mask",
+                    Source = "Mask",
+                },
+            },
+        },
+
+        UL2Mask = RectangleMask {
+            Inputs = {
+                Center = Input { Value = { 0.266667, 0.259259 }, },
+                Width = Input {
+                    SourceOp = "UL2Width",
+                    Source = "Value",
+                },
+                Height = Input { Value = 0.003704, },
+                CornerRadius = Input { Value = 1.0, },
+            },
+        },
+
+        UL2Width = BezierSpline {
+            KeyFrames = {
+                [180] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [186] = { 0.133333, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        UL2Bg = Background {
+            Inputs = {
+                GlobalIn = Input { Value = 120, },
+                GlobalOut = Input { Value = 250, },
+                Width = Input { Value = 1920, },
+                Height = Input { Value = 1080, },
+                TopLeftRed = Input { Value = 1.0, },
+                TopLeftGreen = Input { Value = 0.761, },
+                TopLeftBlue = Input { Value = 0.294, },
+                EffectMask = Input {
+                    SourceOp = "UL2Mask",
+                    Source = "Mask",
+                },
+            },
+        },
+
+        UL3Mask = RectangleMask {
+            Inputs = {
+                Center = Input { Value = { 0.338255, 0.259259 }, },
+                Width = Input {
+                    SourceOp = "UL3Width",
+                    Source = "Value",
+                },
+                Height = Input { Value = 0.003704, },
+                CornerRadius = Input { Value = 1.0, },
+            },
+        },
+
+        UL3Width = BezierSpline {
+            KeyFrames = {
+                [210] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [216] = { 0.27651, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        UL3Bg = Background {
+            Inputs = {
+                GlobalIn = Input { Value = 120, },
+                GlobalOut = Input { Value = 250, },
+                Width = Input { Value = 1920, },
+                Height = Input { Value = 1080, },
+                TopLeftRed = Input { Value = 1.0, },
+                TopLeftGreen = Input { Value = 0.761, },
+                TopLeftBlue = Input { Value = 0.294, },
+                EffectMask = Input {
+                    SourceOp = "UL3Mask",
+                    Source = "Mask",
+                },
+            },
+        },
+
+        -- ─── Caret ───
+        CaretMask = RectangleMask {
+            Inputs = {
+                Center = Input {
+                    SourceOp = "CaretPos",
+                    Source = "Value",
+                },
+                Width = Input { Value = 0.001042, },
+                Height = Input { Value = 0.051852, },
+            },
+        },
+
+        CaretPos = Path {
+            KeyFrames = {
+                [134] = { 0.286823, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [137] = { 0.373542, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [140] = { 0.421875, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [143] = { 0.54, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [146] = { 0.603698, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [149] = { 0.68224, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [156] = { 0.340052, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [158] = { 0.408281, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [164] = { 0.478594, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [168] = { 0.68224, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.340052, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [181] = { 0.478594, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [191] = { 0.396823, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [202] = { 0.483021, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [208] = { 0.27375, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        CaretBg = Background {
+            Inputs = {
+                GlobalIn = Input { Value = 120, },
+                GlobalOut = Input { Value = 250, },
+                Width = Input { Value = 1920, },
+                Height = Input { Value = 1080, },
+                TopLeftRed = Input { Value = 1.0, },
+                TopLeftGreen = Input { Value = 0.761, },
+                TopLeftBlue = Input { Value = 0.294, },
+                EffectMask = Input {
+                    SourceOp = "CaretMask",
+                    Source = "Mask",
+                },
+                Opacity = Input {
+                    SourceOp = "CaretBlink",
+                    Source = "Value",
+                },
+            },
+        },
+
+        CaretBlink = BezierSpline {
+            KeyFrames = {
+                [120] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [126] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [138] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [139] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [150] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [150] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [162] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [163] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [174] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [174] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [186] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [187] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [198] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [198] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [210] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [211] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [222] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+            }
+        },
+
+        -- ─── Merge chain ───
+        SubMerge1 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubtitleBg",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordPitch",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge2 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge1",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordDeck",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge3 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge2",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordBy",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge4 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge3",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordFriday",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge5 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge4",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordCall",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge6 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge5",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordSam",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge7 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge6",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordAnd",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge8 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge7",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordThat",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge9 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge8",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordNew",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge10 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge9",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordFeature",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge11 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge10",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "WordIdea",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge12 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge11",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "UL1Bg",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge13 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge12",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "UL2Bg",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge14 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge13",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "UL3Bg",
+                    Source = "Output",
+                },
+            },
+        },
+
+        SubMerge15 = Merge {
+            Inputs = {
+                Background = Input {
+                    SourceOp = "SubMerge14",
+                    Source = "Output",
+                },
+                Foreground = Input {
+                    SourceOp = "CaretBg",
+                    Source = "Output",
+                },
+            },
+        },
+
+    },
+
+    ActiveTool = "SubMerge15",
+}
