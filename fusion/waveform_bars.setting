@@ -1,0 +1,1464 @@
+{
+	Tools = ordered() {
+
+		BarMask1 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.212500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight1",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 220, -260 } },
+		},
+
+		BarHeight1 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.011941 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.018199, LH = { 70, 0.016858 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar1 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask1",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 220, -200 } },
+		},
+
+		BarMask2 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.237500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight2",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 275, -260 } },
+		},
+
+		BarHeight2 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.012797 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.021051, LH = { 70, 0.019282 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar2 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask2",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 275, -200 } },
+		},
+
+		BarMask3 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.262500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight3",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 330, -260 } },
+		},
+
+		BarHeight3 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.014187 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.025684, LH = { 70, 0.023220 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar3 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask3",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 330, -200 } },
+		},
+
+		BarMask4 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.287500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight4",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 385, -260 } },
+		},
+
+		BarHeight4 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.016302 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.032735, LH = { 70, 0.029213 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar4 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask4",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 385, -200 } },
+		},
+
+		BarMask5 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.312500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight5",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 440, -260 } },
+		},
+
+		BarHeight5 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.019310 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.042763, LH = { 70, 0.037737 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar5 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask5",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 440, -200 } },
+		},
+
+		BarMask6 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.337500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight6",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 495, -260 } },
+		},
+
+		BarHeight6 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.023296 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.056048, LH = { 70, 0.049030 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar6 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask6",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 495, -200 } },
+		},
+
+		BarMask7 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.362500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight7",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 550, -260 } },
+		},
+
+		BarHeight7 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.028190 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.072360, LH = { 70, 0.062895 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar7 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask7",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 550, -200 } },
+		},
+
+		BarMask8 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.387500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight8",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 605, -260 } },
+		},
+
+		BarHeight8 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.033717 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.090786, LH = { 70, 0.078557 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar8 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask8",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 605, -200 } },
+		},
+
+		BarMask9 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.412500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight9",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 660, -260 } },
+		},
+
+		BarHeight9 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.039389 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.109691, LH = { 70, 0.094626 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar9 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask9",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 660, -200 } },
+		},
+
+		BarMask10 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.437500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight10",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 715, -260 } },
+		},
+
+		BarHeight10 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.044551 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.126898, LH = { 70, 0.109252 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar10 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask10",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 715, -200 } },
+		},
+
+		BarMask11 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.462500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight11",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 770, -260 } },
+		},
+
+		BarHeight11 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.048502 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.140070, LH = { 70, 0.120448 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar11 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask11",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 770, -200 } },
+		},
+
+		BarMask12 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.487500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight12",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 825, -260 } },
+		},
+
+		BarHeight12 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.050649 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.147225, LH = { 70, 0.126531 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar12 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask12",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 825, -200 } },
+		},
+
+		BarMask13 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.512500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight13",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 880, -260 } },
+		},
+
+		BarHeight13 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.050649 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.147225, LH = { 70, 0.126531 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar13 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask13",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 880, -200 } },
+		},
+
+		BarMask14 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.537500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight14",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 935, -260 } },
+		},
+
+		BarHeight14 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.048502 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.140070, LH = { 70, 0.120448 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar14 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask14",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 935, -200 } },
+		},
+
+		BarMask15 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.562500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight15",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 990, -260 } },
+		},
+
+		BarHeight15 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.044551 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.126898, LH = { 70, 0.109252 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar15 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask15",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 990, -200 } },
+		},
+
+		BarMask16 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.587500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight16",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1045, -260 } },
+		},
+
+		BarHeight16 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.039389 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.109691, LH = { 70, 0.094626 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar16 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask16",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1045, -200 } },
+		},
+
+		BarMask17 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.612500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight17",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1100, -260 } },
+		},
+
+		BarHeight17 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.033717 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.090786, LH = { 70, 0.078557 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar17 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask17",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1100, -200 } },
+		},
+
+		BarMask18 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.637500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight18",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1155, -260 } },
+		},
+
+		BarHeight18 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.028190 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.072360, LH = { 70, 0.062895 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar18 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask18",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1155, -200 } },
+		},
+
+		BarMask19 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.662500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight19",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1210, -260 } },
+		},
+
+		BarHeight19 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.023296 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.056048, LH = { 70, 0.049030 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar19 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask19",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1210, -200 } },
+		},
+
+		BarMask20 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.687500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight20",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1265, -260 } },
+		},
+
+		BarHeight20 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.019310 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.042763, LH = { 70, 0.037737 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar20 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask20",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1265, -200 } },
+		},
+
+		BarMask21 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.712500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight21",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1320, -260 } },
+		},
+
+		BarHeight21 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.016302 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.032735, LH = { 70, 0.029213 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar21 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask21",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1320, -200 } },
+		},
+
+		BarMask22 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.737500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight22",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1375, -260 } },
+		},
+
+		BarHeight22 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.014187 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.025684, LH = { 70, 0.023220 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar22 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask22",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1375, -200 } },
+		},
+
+		BarMask23 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.762500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight23",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1430, -260 } },
+		},
+
+		BarHeight23 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.012797 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.021051, LH = { 70, 0.019282 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar23 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask23",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1430, -200 } },
+		},
+
+		BarMask24 = RectangleMask {
+			CtrlWZoom = false,
+			Inputs = {
+				MaskWidth = Input { Value = 1920, },
+				MaskHeight = Input { Value = 1080, },
+				PixelAspect = Input { Value = { 1, 1 }, },
+				ClippingMode = Input { Value = FuID { "None" }, },
+				Center = Input { Value = { 0.787500, 0.5 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input {
+					SourceOp = "BarHeight24",
+					Source = "Value",
+				},
+				CornerRadius = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1485, -260 } },
+		},
+
+		BarHeight24 = BezierSpline {
+			SplineColor = { Red = 0, Green = 180, Blue = 0 },
+			KeyFrames = {
+				[60] = { 0.009259, RH = { 62, 0.011941 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[72] = { 0.018199, LH = { 70, 0.016858 }, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		Bar24 = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftRed = Input { Value = 1.0, },
+				TopLeftGreen = Input { Value = 0.761, },
+				TopLeftBlue = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "BarMask24",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1485, -200 } },
+		},
+
+		BarMerge1 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "Bar1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar2",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 275, 100 } },
+		},
+
+		BarMerge2 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar3",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 330, 100 } },
+		},
+
+		BarMerge3 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge2",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar4",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 385, 100 } },
+		},
+
+		BarMerge4 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge3",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar5",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 440, 100 } },
+		},
+
+		BarMerge5 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge4",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar6",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 495, 100 } },
+		},
+
+		BarMerge6 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge5",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar7",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 550, 100 } },
+		},
+
+		BarMerge7 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge6",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar8",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 605, 100 } },
+		},
+
+		BarMerge8 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge7",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar9",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 660, 100 } },
+		},
+
+		BarMerge9 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge8",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar10",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 715, 100 } },
+		},
+
+		BarMerge10 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge9",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar11",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 770, 100 } },
+		},
+
+		BarMerge11 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge10",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar12",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 825, 100 } },
+		},
+
+		BarMerge12 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge11",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar13",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 880, 100 } },
+		},
+
+		BarMerge13 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge12",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar14",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 935, 100 } },
+		},
+
+		BarMerge14 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge13",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar15",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 990, 100 } },
+		},
+
+		BarMerge15 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge14",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar16",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1045, 100 } },
+		},
+
+		BarMerge16 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge15",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar17",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1100, 100 } },
+		},
+
+		BarMerge17 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge16",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar18",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1155, 100 } },
+		},
+
+		BarMerge18 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge17",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar19",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1210, 100 } },
+		},
+
+		BarMerge19 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge18",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar20",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1265, 100 } },
+		},
+
+		BarMerge20 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge19",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar21",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1320, 100 } },
+		},
+
+		BarMerge21 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge20",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar22",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1375, 100 } },
+		},
+
+		BarMerge22 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge21",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar23",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1430, 100 } },
+		},
+
+		BarMerge23 = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "BarMerge22",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Bar24",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1485, 100 } },
+		},
+
+		MediaOut1 = MediaOut {
+			Inputs = {
+				Input = Input {
+					SourceOp = "BarMerge23",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1540, 100 } },
+		},
+
+	},
+	ActiveTool = "BarMerge1",
+}
