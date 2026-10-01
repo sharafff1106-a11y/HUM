@@ -1,0 +1,285 @@
+{
+  "transcript": {
+    "font": "Inter Medium",
+    "fusion_size": 0.059,
+    "px_size": 63.7,
+    "baseline_y": 760,
+    "space_width": 17.0,
+    "words": [
+      {
+        "word": "Pitch",
+        "x": 384,
+        "width": 153.7
+      },
+      {
+        "word": "deck",
+        "x": 555,
+        "width": 149.2
+      },
+      {
+        "word": "by",
+        "x": 721,
+        "width": 76.0
+      },
+      {
+        "word": "Friday,",
+        "x": 814,
+        "width": 209.8
+      },
+      {
+        "word": "call",
+        "x": 1041,
+        "width": 105.1
+      },
+      {
+        "word": "Sam",
+        "x": 1163,
+        "width": 133.9
+      },
+      {
+        "word": "and",
+        "x": 1314,
+        "width": 113.9
+      },
+      {
+        "word": "that",
+        "x": 1445,
+        "width": 117.9
+      },
+      {
+        "word": "new",
+        "x": 1580,
+        "width": 128.6
+      },
+      {
+        "word": "feature",
+        "x": 1725,
+        "width": 219.9
+      },
+      {
+        "word": "idea.",
+        "x": 1962,
+        "width": 148.4
+      }
+    ],
+    "total_width": 1726.4
+  },
+  "card_titles": {
+    "font": "Inter Medium",
+    "fusion_size": 0.033,
+    "px_size": 35.6,
+    "titles": [
+      {
+        "title": "Pitch deck by Friday",
+        "width": 347.0
+      },
+      {
+        "title": "Call Sam",
+        "width": 148.8
+      },
+      {
+        "title": "New feature idea",
+        "width": 291.6
+      }
+    ]
+  },
+  "card_labels": {
+    "font": "Inter Medium",
+    "fusion_size": 0.019,
+    "tracking": 1.08,
+    "px_size": 20.5,
+    "labels": [
+      {
+        "label": "TASK",
+        "width": 59.7
+      },
+      {
+        "label": "CALL",
+        "width": 57.0
+      },
+      {
+        "label": "IDEA",
+        "width": 51.1
+      }
+    ]
+  },
+  "big_logo": {
+    "font": "Inter Light",
+    "fusion_size": 0.13,
+    "px_size": 140.4,
+    "text": "hum",
+    "width": 287.9,
+    "centre": [
+      960,
+      575
+    ]
+  },
+  "small_logo": {
+    "font": "Inter Medium",
+    "fusion_size": 0.026,
+    "px_size": 28.1,
+    "text": "hum",
+    "width": 58.7,
+    "left_edge_x": 120,
+    "y": 110
+  },
+  "tagline": {
+    "font": "Inter Regular",
+    "fusion_size": 0.03,
+    "px_size": 32.4,
+    "text": "Say it. It's sorted.",
+    "width": 265.8,
+    "centre": [
+      960,
+      665
+    ]
+  },
+  "tap_label": {
+    "font": "Inter Regular",
+    "fusion_size": 0.022,
+    "text": "Tap to record",
+    "width": 152.7,
+    "centre": [
+      960,
+      690
+    ]
+  },
+  "compact_cards": {
+    "size": [
+      320,
+      200
+    ],
+    "radius": 20,
+    "fill": "#17191E",
+    "border": "1px #2A2D33",
+    "row_gap": 48,
+    "slots": [
+      {
+        "card": 1,
+        "label": "TASK",
+        "title": "Pitch deck by Friday",
+        "icon": "list-check",
+        "centre": [
+          592,
+          500
+        ],
+        "tilt_deg": -3
+      },
+      {
+        "card": 2,
+        "label": "CALL",
+        "title": "Call Sam",
+        "icon": "phone",
+        "centre": [
+          960,
+          500
+        ],
+        "tilt_deg": 2
+      },
+      {
+        "card": 3,
+        "label": "IDEA",
+        "title": "New feature idea",
+        "icon": "bulb",
+        "centre": [
+          1328,
+          500
+        ],
+        "tilt_deg": -1
+      }
+    ]
+  },
+  "list_cards": {
+    "size": [
+      720,
+      120
+    ],
+    "radius": 20,
+    "list_gap": 28,
+    "slots": [
+      {
+        "card": 1,
+        "centre": [
+          960,
+          392
+        ]
+      },
+      {
+        "card": 2,
+        "centre": [
+          960,
+          540
+        ]
+      },
+      {
+        "card": 3,
+        "centre": [
+          960,
+          688
+        ]
+      }
+    ],
+    "icon_circle": {
+      "diameter": 56,
+      "fill": "#2A2D33",
+      "offset_from_left": 60
+    },
+    "label_offset": {
+      "x": 112,
+      "y": -14
+    },
+    "title_offset": {
+      "x": 112,
+      "y": 16
+    },
+    "tick_offset_from_right": 52
+  },
+  "waveform": {
+    "bars": 48,
+    "bar_width": 10,
+    "gap": 14,
+    "pitch": 24,
+    "total_width": 1138,
+    "min_height": 10,
+    "max_height": 280,
+    "centre": [
+      960,
+      500
+    ],
+    "parked_scale": 0.4,
+    "parked_centre": [
+      960,
+      260
+    ]
+  },
+  "caret": {
+    "width": 2,
+    "height": 56,
+    "colour": "#FFC24B",
+    "blink_on": 12,
+    "blink_off": 12,
+    "gap_after_word": 12
+  },
+  "underline": {
+    "height": 4,
+    "colour": "#FFC24B",
+    "y": 800
+  },
+  "final_line": {
+    "height": 2,
+    "colour": "#FFC24B",
+    "width": 1152,
+    "centre": [
+      960,
+      470
+    ]
+  },
+  "pill": {
+    "width": 1138,
+    "height": 10,
+    "centre": [
+      960,
+      500
+    ]
+  }
+}

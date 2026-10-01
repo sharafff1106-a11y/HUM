@@ -1,0 +1,65 @@
+{
+  "S1_to_S2": {
+    "handoff_frame": 72,
+    "elements_present": [
+      "Background with radial lift (full opacity)",
+      "Small logo 'hum' top-left (full opacity)",
+      "Waveform: 48 bars at (960,500), heights from voice audio, full size",
+      "Timer '00:00' at (960,700) \u2014 fading in (f68\u201376, so partially visible)",
+      "Stop button at (960,780) \u2014 fading in",
+      "No cursor (faded at f55)",
+      "No record button (morphed to bars)",
+      "No ring (faded at f63)",
+      "No 'Tap to record' (faded at f54)"
+    ],
+    "match_check": "S2 first frame must show same waveform position/size, timer state, bg"
+  },
+  "S2_to_S3": {
+    "handoff_frame": 192,
+    "elements_present": [
+      "Background with radial lift",
+      "Small logo 'hum' top-left",
+      "Waveform parked at 40% at (960,260), bars relaxed to dots (h\u224810px)",
+      "All 11 transcript words on baseline y760, colours = primary",
+      "Caret blinking after 'idea.'",
+      "No timer, no stop button (faded at f125)"
+    ],
+    "note": "S3 starts at f152, so S2 holds f192 state. T3 overlaps T2 slightly."
+  },
+  "S3_to_S4": {
+    "handoff_frame": 248,
+    "elements_present": [
+      "Background with radial lift",
+      "Small logo 'hum' top-left",
+      "Card 1 at (592,500), \u22123\u00b0, 320\u00d7200, grey border",
+      "Card 2 at (960,500), +2\u00b0, 320\u00d7200, grey border",
+      "Card 3 at (1328,500), \u22121\u00b0, 320\u00d7200, grey border",
+      "No waveform (faded at f242)",
+      "No transcript words (absorbed into cards)",
+      "No caret (faded at f214)"
+    ]
+  },
+  "S4_to_S5": {
+    "handoff_frame": 314,
+    "elements_present": [
+      "Background with radial lift",
+      "Small logo 'hum' top-left",
+      "Card 1 at (960,392), 0\u00b0, 720\u00d7120 (list), with tick",
+      "Card 2 at (960,540), 0\u00b0, 720\u00d7120, with tick",
+      "Card 3 at (960,688), 0\u00b0, 720\u00d7120, with tick",
+      "All cards: grey border #2A2D33, fill #17191E"
+    ]
+  },
+  "S5_end": {
+    "handoff_frame": 479,
+    "elements_present": [
+      "Background with radial lift",
+      "Amber line 2px \u00d7 1152px at (960,470)",
+      "Big logo 'hum' at (960,575)",
+      "Tagline 'Say it. It's sorted.' at (960,665)",
+      "Line glow settled at 1.0",
+      "No small logo (faded at f378)",
+      "No cards (compressed to line)"
+    ]
+  }
+}

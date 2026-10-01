@@ -1,0 +1,245 @@
+{
+    Tools = ordered() {
+        -- ═══ S5: LIST HOLD + T5 (LIST → LINE → LOGO) ═══
+        -- Frames: f314–f479 (166 frames, ~6.92s)
+        -- Entry: 3 list cards with ticks
+        -- Exit: amber line + big "hum" + tagline
+
+        Background = Background {
+            Inputs = {
+                GlobalIn = Input { Value = 314, },
+                GlobalOut = Input { Value = 479, },
+                Width = Input { Value = 1920, },
+                Height = Input { Value = 1080, },
+                TopLeftRed = Input { Value = 0.043, },
+                TopLeftGreen = Input { Value = 0.047, },
+                TopLeftBlue = Input { Value = 0.059, },
+            },
+        },
+
+        -- ─── Card contents fade out (f372–376) ───
+        CardContentFade = BezierSpline {
+            KeyFrames = {
+                [314] = { 1, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [372] = { 1, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [376] = { 0, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } }
+            }
+        },
+
+        -- ─── Small logo fade out (f372–378) ───
+        SmallLogoFade = BezierSpline {
+            KeyFrames = {
+                [314] = { 1, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [372] = { 1, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [378] = { 0, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } }
+            }
+        },
+
+        SmallLogo = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "hum", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.026, },
+                Center = Input { Value = { 0.077604, 0.898148 }, },
+                HorizontalJustificationNew = Input { Value = 0, },
+                Red1 = Input { Value = 0.961, },
+                Green1 = Input { Value = 0.953, },
+                Blue1 = Input { Value = 0.933, },
+                Opacity = Input {
+                    SourceOp = "SmallLogoFade",
+                    Source = "Value",
+                },
+            },
+        },
+
+        -- ─── Cards compress to lines (f372–380) ───
+        -- height 120→2px, fill→amber, border off, radius→1
+
+        Card1H = BezierSpline {
+            KeyFrames = {
+                [314] = { 0.111111, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [372] = { 0.111111, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [380] = { 0.001852, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } }
+            }
+        },
+
+        -- Card fill transitions to amber
+        Card1FillR = BezierSpline {
+            KeyFrames = {
+                [372] = { 0.090, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [380] = { 1.0, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } }
+            }
+        },
+        Card1FillG = BezierSpline {
+            KeyFrames = {
+                [372] = { 0.098, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [380] = { 0.761, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } }
+            }
+        },
+        Card1FillB = BezierSpline {
+            KeyFrames = {
+                [372] = { 0.118, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [380] = { 0.294, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } }
+            }
+        },
+
+        -- ─── 3 lines converge to y540 (f380–388) ───
+        Line1Y = BezierSpline {
+            -- Card 1 at y392 → y540
+            KeyFrames = {
+                [380] = { 0.637037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.7 } },
+                [388] = { 0.5, RH = { 0.333, 0.7 }, LH = { -0.333, 0.7 } }
+            }
+        },
+
+        Line2Y = BezierSpline {
+            -- Card 2 at y540 → stays y540
+            KeyFrames = {
+                [380] = { 0.5, RH = { 0.333, 0.7 }, LH = { -0.333, 0.7 } },
+                [388] = { 0.5, RH = { 0.333, 0.7 }, LH = { -0.333, 0.7 } }
+            }
+        },
+
+        Line3Y = BezierSpline {
+            -- Card 3 at y688 → y540
+            KeyFrames = {
+                [380] = { 0.362963, RH = { 0.333, 0.7 }, LH = { -0.333, 0.7 } },
+                [388] = { 0.5, RH = { 0.333, 0.7 }, LH = { -0.333, 0.7 } }
+            }
+        },
+
+        -- ─── Single line extends (f386–398) ───
+        -- width 720→1152, y 540→470
+        FinalLine = RectangleMask {
+            Inputs = {
+                Center = Input {
+                    SourceOp = "FinalLinePos",
+                    Source = "Value",
+                },
+                Width = Input {
+                    SourceOp = "FinalLineW",
+                    Source = "Value",
+                },
+                Height = Input { Value = 0.001852, },
+                CornerRadius = Input { Value = 1.0, },
+            },
+        },
+
+        FinalLinePos = Path {
+            KeyFrames = {
+                [386] = { 0.5, 0.5, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [398] = { 0.5, 0.564815, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        FinalLineW = BezierSpline {
+            KeyFrames = {
+                [386] = { 0.375, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [398] = { 0.6, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- ─── Line glow (f396–412) ───
+        -- gain 1.0→1.6→1.0
+        LineGlow = BezierSpline {
+            -- Apply as Soft Glow gain on the line
+            KeyFrames = {
+                [396] = { 1.0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.7 } },
+                [404] = { 1.6, RH = { 0.333, 0.7 }, LH = { -0.333, 0.7 } },
+                [412] = { 1.0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.7 } }
+            }
+        },
+
+        -- ─── Big logo (f396–408) ───
+        -- Masked reveal: slides from just under line (y465) to (960,575)
+        -- Mask = area below the line
+        BigLogo = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "hum", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Light", },
+                Size = Input { Value = 0.130, },
+                Tracking = Input { Value = 0.97, },
+                Center = Input {
+                    SourceOp = "BigLogoPos",
+                    Source = "Value",
+                },
+                Red1 = Input { Value = 0.961, },
+                Green1 = Input { Value = 0.953, },
+                Blue1 = Input { Value = 0.933, },
+                Opacity = Input {
+                    SourceOp = "BigLogoOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        BigLogoPos = Path {
+            -- f396–408: rise from y465 to y575
+            KeyFrames = {
+                [396] = { 0.5, 0.569444, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [408] = { 0.5, 0.467593, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        BigLogoOpacity = BezierSpline {
+            KeyFrames = {
+                [314] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [396] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [400] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- Mask: everything below the line (y < 470 in Fusion coords = y > 470 in px)
+        LogoRevealMask = RectangleMask {
+            Inputs = {
+                Center = Input { Value = { 0.5, 0.282407 }, },
+                Width = Input { Value = 1.0, },
+                Height = Input { Value = 0.564815, },
+                SoftEdge = Input { Value = 0.005, },
+            },
+        },
+
+        -- ─── Tagline (f410–418) ───
+        Tagline = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "Say it. It's sorted.", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Regular", },
+                Size = Input { Value = 0.030, },
+                Center = Input {
+                    SourceOp = "TaglinePos",
+                    Source = "Value",
+                },
+                Red1 = Input { Value = 0.557, },
+                Green1 = Input { Value = 0.561, },
+                Blue1 = Input { Value = 0.545, },
+                Opacity = Input {
+                    SourceOp = "TaglineOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        TaglinePos = Path {
+            -- f410–418: rise 8px
+            KeyFrames = {
+                [410] = { 0.5, 0.376852, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [418] = { 0.5, 0.384259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        TaglineOpacity = BezierSpline {
+            KeyFrames = {
+                [314] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [410] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [418] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- End frame hold: f418–479 (62 frames)
+    },
+
+    ActiveTool = "BigLogo",
+}

@@ -1,0 +1,201 @@
+{
+    Tools = ordered() {
+        -- ═══ S3: T3 (WORDS → CARDS) ═══
+        -- Frames: f152–f248 (97 frames, ~4.04s)
+        -- Entry: transcript line with all words, waveform parked at 40%
+        -- Exit: 3 compact cards in row, waveform faded out
+
+        Background = Background {
+            Inputs = {
+                GlobalIn = Input { Value = 152, },
+                GlobalOut = Input { Value = 248, },
+                Width = Input { Value = 1920, },
+                Height = Input { Value = 1080, },
+                TopLeftRed = Input { Value = 0.043, },
+                TopLeftGreen = Input { Value = 0.047, },
+                TopLeftBlue = Input { Value = 0.059, },
+            },
+        },
+
+        -- ─── CARD 1: "Pitch deck by Friday" ═══
+        -- Underline f152–158 (6f)
+        -- Grow f158–166 (8f, overshoot 104% at f164, settle f166)
+        -- Label+icon f162–168 (fade in 6f, rise 6px)
+        -- Lift f166–178 → (592,500), −3°
+        -- Border amber→grey f178–190
+
+        Card1Underline = RectangleMask {
+            -- 4px amber line under "Pitch deck by Friday"
+            -- Grows left→right over f152–158
+            Inputs = {
+                Center = Input { Value = { 0.3125, 0.259259 }, },
+                Width = Input {
+                    SourceOp = "Card1UlWidth",
+                    Source = "Value",
+                },
+                Height = Input { Value = 0.003704, },
+                CornerRadius = Input { Value = 1.0, },
+            },
+        },
+
+        Card1UlWidth = BezierSpline {
+            -- Grows from 0 to phrase width over 6f
+            KeyFrames = {
+                [152] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [158] = { 0.302083, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card1Body = RectangleMask {
+            -- 320×200, radius 20
+            Inputs = {
+                Center = Input {
+                    SourceOp = "Card1Pos",
+                    Source = "Value",
+                },
+                Width = Input {
+                    SourceOp = "Card1W",
+                    Source = "Value",
+                },
+                Height = Input {
+                    SourceOp = "Card1H",
+                    Source = "Value",
+                },
+                CornerRadius = Input { Value = 0.0625, },
+                Angle = Input {
+                    SourceOp = "Card1Rot",
+                    Source = "Value",
+                },
+            },
+        },
+
+        Card1W = BezierSpline {
+            -- f158–166: grow from underline width to 320px
+            KeyFrames = {
+                [152] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [158] = { 0.302083, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [164] = { 0.173333, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [166] = { 0.166667, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card1H = BezierSpline {
+            -- f158–166: grow from 4px (underline) to 200px
+            KeyFrames = {
+                [158] = { 0.003704, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [164] = { 0.192593, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [166] = { 0.185185, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card1Pos = Path {
+            -- f158: at transcript position for "Pitch deck by Friday"
+            -- f166–178: lift to row slot (592, 500)
+            KeyFrames = {
+                [158] = { 0.3125, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [166] = { 0.3125, 0.37037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { 0.308333, 0.537037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card1Rot = BezierSpline {
+            -- f166–178: rotate to −3°
+            KeyFrames = {
+                [166] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [178] = { -3, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card1Label = TextPlus {
+            -- "TASK" label, amber, top-left of card
+            Inputs = {
+                StyledText = Input { Value = "TASK", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.019, },
+                Tracking = Input { Value = 1.08, },
+                Red1 = Input { Value = 1.0, },
+                Green1 = Input { Value = 0.761, },
+                Blue1 = Input { Value = 0.294, },
+                Opacity = Input {
+                    SourceOp = "Card1LabelOp",
+                    Source = "Value",
+                },
+            },
+        },
+
+        Card1LabelOp = BezierSpline {
+            -- f162–168: fade in
+            KeyFrames = {
+                [152] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [162] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [168] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card1Title = TextPlus {
+            -- "Pitch deck by Friday"
+            Inputs = {
+                StyledText = Input { Value = "Pitch deck\nby Friday", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.033, },
+                Red1 = Input { Value = 0.961, },
+                Green1 = Input { Value = 0.953, },
+                Blue1 = Input { Value = 0.933, },
+            },
+        },
+
+        -- ─── CARD 2: "Call Sam" ═══
+        -- Underline f180–186, Grow f186–194, Label+icon f190–197
+        -- Lift f194–206 → (960,500), +2°, Border f206–218
+
+        Card2Underline = RectangleMask {
+            Inputs = {
+                Center = Input { Value = { 0.572917, 0.259259 }, },
+                Width = Input {
+                    SourceOp = "Card2UlWidth",
+                    Source = "Value",
+                },
+                Height = Input { Value = 0.003704, },
+                CornerRadius = Input { Value = 1.0, },
+            },
+        },
+
+        Card2UlWidth = BezierSpline {
+            KeyFrames = {
+                [180] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [186] = { 0.130208, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- (Card 2 body, position, rotation, label, title follow same structure)
+
+        -- ─── CARD 3: "New feature idea" ═══
+        -- Underline f210–216, Grow f216–224, Label+icon f220–227
+        -- Lift f224–236 → (1328,500), −1°, Border f236–248
+
+        -- ─── Remaining transcript cleanup ───
+        -- f168–178: remaining words slide left to x 384
+        -- f196–201: "and that" fade out
+        -- f198–208: "new feature idea" slide left to x 384
+        -- f210–214: caret fade out
+        -- f236–242: parked waveform dots fade out
+
+        SmallLogo = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "hum", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.026, },
+                Center = Input { Value = { 0.077604, 0.898148 }, },
+                HorizontalJustificationNew = Input { Value = 0, },
+                Red1 = Input { Value = 0.961, },
+                Green1 = Input { Value = 0.953, },
+                Blue1 = Input { Value = 0.933, },
+            },
+        },
+    },
+
+    ActiveTool = "Card1Body",
+}

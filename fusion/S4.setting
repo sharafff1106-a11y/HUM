@@ -1,0 +1,170 @@
+{
+    Tools = ordered() {
+        -- ═══ S4: ROW HOLD + T4 (CARDS → SORTED LIST) ═══
+        -- Frames: f248–f314 (67 frames, ~2.79s)
+        -- Entry: 3 compact cards in row with tilts
+        -- Exit: 3 list cards, vertical, with checkmarks
+
+        Background = Background {
+            Inputs = {
+                GlobalIn = Input { Value = 248, },
+                GlobalOut = Input { Value = 314, },
+                Width = Input { Value = 1920, },
+                Height = Input { Value = 1080, },
+                TopLeftRed = Input { Value = 0.043, },
+                TopLeftGreen = Input { Value = 0.047, },
+                TopLeftBlue = Input { Value = 0.059, },
+            },
+        },
+
+        -- ─── Card 1: (592,500) −3° → (960,392) 0° ───
+        Card1 = RectangleMask {
+            Inputs = {
+                Center = Input {
+                    SourceOp = "Card1Pos",
+                    Source = "Value",
+                },
+                Width = Input {
+                    SourceOp = "Card1W",
+                    Source = "Value",
+                },
+                Height = Input {
+                    SourceOp = "Card1H",
+                    Source = "Value",
+                },
+                CornerRadius = Input { Value = 0.0625, },
+                Angle = Input {
+                    SourceOp = "Card1Rot",
+                    Source = "Value",
+                },
+            },
+        },
+
+        Card1Pos = Path {
+            -- Hold at (592,500) until f276
+            -- f276–288: curved path to (960,392)
+            KeyFrames = {
+                [248] = { 0.308333, 0.537037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [276] = { 0.308333, 0.537037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [288] = { 0.5, 0.637037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card1W = BezierSpline {
+            -- f276–288: 320→720
+            KeyFrames = {
+                [248] = { 0.166667, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [276] = { 0.166667, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [288] = { 0.375, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card1H = BezierSpline {
+            -- f276–288: 200→120
+            KeyFrames = {
+                [248] = { 0.185185, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [276] = { 0.185185, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [288] = { 0.111111, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card1Rot = BezierSpline {
+            -- f276–288: −3°→0°
+            KeyFrames = {
+                [248] = { -3, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [276] = { -3, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [288] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- Settle: f288→f292: scale 103→100%
+        Card1Settle = BezierSpline {
+            KeyFrames = {
+                [288] = { 1.03, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [292] = { 1.0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- ─── Card 2: (960,500) +2° → (960,540) 0° ───
+        Card2Pos = Path {
+            KeyFrames = {
+                [248] = { 0.5, 0.537037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [279] = { 0.5, 0.537037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [291] = { 0.5, 0.5, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card2Rot = BezierSpline {
+            KeyFrames = {
+                [248] = { 2, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [279] = { 2, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [291] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- ─── Card 3: (1328,500) −1° → (960,688) 0° ───
+        Card3Pos = Path {
+            KeyFrames = {
+                [248] = { 0.691667, 0.537037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [282] = { 0.691667, 0.537037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [294] = { 0.5, 0.362963, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Card3Rot = BezierSpline {
+            KeyFrames = {
+                [248] = { -1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [282] = { -1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [294] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- ─── Ticks ───
+        -- f300/f303/f306: tick circles scale 0→104%(4f)→100%(2f)
+        -- f304/f307/f310: checkmark write-on stroke 0→100%
+        -- Taps @ f302, f305, f308 (rising pitch)
+
+        Tick1Scale = BezierSpline {
+            KeyFrames = {
+                [299] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [300] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [304] = { 1.04, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [306] = { 1.0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Tick2Scale = BezierSpline {
+            KeyFrames = {
+                [302] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [303] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [307] = { 1.04, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [309] = { 1.0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        Tick3Scale = BezierSpline {
+            KeyFrames = {
+                [305] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [306] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [310] = { 1.04, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [312] = { 1.0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        SmallLogo = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "hum", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.026, },
+                Center = Input { Value = { 0.077604, 0.898148 }, },
+                HorizontalJustificationNew = Input { Value = 0, },
+                Red1 = Input { Value = 0.961, },
+                Green1 = Input { Value = 0.953, },
+                Blue1 = Input { Value = 0.933, },
+            },
+        },
+    },
+
+    ActiveTool = "Card1",
+}

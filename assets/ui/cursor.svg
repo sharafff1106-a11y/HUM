@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <!-- Arrow cursor: white fill, dark outline -->
+  <path d="M6 2 L6 28 L12.5 21.5 L19.5 33 L23 31 L16 19.5 L25 19.5 Z"
+        fill="#F5F3EE" stroke="#0B0C0F" stroke-width="2" stroke-linejoin="round"/>
+</svg>

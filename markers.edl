@@ -1,0 +1,79 @@
+TITLE: HUM_SOUND_MARKERS
+FCM: NON-DROP FRAME
+
+001  AX       V     C        00:00:01:23 00:00:01:24 00:00:01:23 00:00:01:24
+* FROM CLIP NAME: Click (cursor tap)
+* COMMENT: f47 — cursor presses record button. Short mechanical click.
+
+002  AX       V     C        00:00:02:03 00:00:02:11 00:00:02:03 00:00:02:11
+* FROM CLIP NAME: Stretch tone
+* COMMENT: f51–f59 — button morphs into pill. Smooth tonal stretch.
+
+003  AX       V     C        00:00:02:14 00:00:03:00 00:00:02:14 00:00:03:00
+* FROM CLIP NAME: Voice begins
+* COMMENT: f62 — voice recording starts, waveform comes alive.
+
+004  AX       V     C        00:00:05:06 00:00:05:06 00:00:05:06 00:00:05:06
+* FROM CLIP NAME: Word tick 1 (Pitch)
+* COMMENT: Catch-up word lands on transcript line.
+
+005  AX       V     C        00:00:05:09 00:00:05:09 00:00:05:09 00:00:05:09
+* FROM CLIP NAME: Word tick 2 (deck)
+* COMMENT: Catch-up word lands.
+
+006  AX       V     C        00:00:05:12 00:00:05:12 00:00:05:12 00:00:05:12
+* FROM CLIP NAME: Word tick 3 (by)
+* COMMENT: Catch-up word lands.
+
+007  AX       V     C        00:00:05:15 00:00:05:15 00:00:05:15 00:00:05:15
+* FROM CLIP NAME: Word tick 4 (Friday,)
+* COMMENT: Catch-up word lands.
+
+008  AX       V     C        00:00:05:18 00:00:05:18 00:00:05:18 00:00:05:18
+* FROM CLIP NAME: Word tick 5 (call)
+* COMMENT: Catch-up word lands.
+
+009  AX       V     C        00:00:05:21 00:00:05:21 00:00:05:21 00:00:05:21
+* FROM CLIP NAME: Word tick 6 (Sam)
+* COMMENT: Catch-up word lands.
+
+010  AX       V     C        00:00:06:22 00:00:06:22 00:00:06:22 00:00:06:22
+* FROM CLIP NAME: Word tick 7 (and) — live
+* COMMENT: f166 — live transcription word lands (spoken f154 + 12f lag).
+
+011  AX       V     C        00:00:06:16 00:00:06:16 00:00:06:16 00:00:06:16
+* FROM CLIP NAME: Card 1 snap
+* COMMENT: f164 — "Pitch deck by Friday" card forms. Snap/pop sound.
+
+012  AX       V     C        00:00:08:00 00:00:08:00 00:00:08:00 00:00:08:00
+* FROM CLIP NAME: Card 2 snap
+* COMMENT: f192 — "Call Sam" card forms. Snap/pop sound.
+
+013  AX       V     C        00:00:09:06 00:00:09:06 00:00:09:06 00:00:09:06
+* FROM CLIP NAME: Card 3 snap
+* COMMENT: f222 — "New feature idea" card forms. Snap/pop sound.
+
+014  AX       V     C        00:00:11:12 00:00:12:02 00:00:11:12 00:00:12:02
+* FROM CLIP NAME: Soft whoosh (cards sort)
+* COMMENT: f276–f290 — cards move on curved paths to list positions.
+
+015  AX       V     C        00:00:12:14 00:00:12:14 00:00:12:14 00:00:12:14
+* FROM CLIP NAME: Tick tap 1 (rising pitch)
+* COMMENT: f302 — first checkmark appears on card 1.
+
+016  AX       V     C        00:00:12:17 00:00:12:17 00:00:12:17 00:00:12:17
+* FROM CLIP NAME: Tick tap 2 (rising pitch)
+* COMMENT: f305 — second checkmark appears on card 2.
+
+017  AX       V     C        00:00:12:20 00:00:12:20 00:00:12:20 00:00:12:20
+* FROM CLIP NAME: Tick tap 3 (rising pitch)
+* COMMENT: f308 — third checkmark appears on card 3.
+
+018  AX       V     C        00:00:15:12 00:00:16:04 00:00:15:12 00:00:16:04
+* FROM CLIP NAME: Whoosh (cards to lines)
+* COMMENT: f372–f388 — cards compress to amber lines and converge.
+
+019  AX       V     C        00:00:16:12 00:00:16:12 00:00:16:12 00:00:16:12
+* FROM CLIP NAME: Warm note
+* COMMENT: f396 — line glows, logo begins to rise. Warm, resolving tone.
+

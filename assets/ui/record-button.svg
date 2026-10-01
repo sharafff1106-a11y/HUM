@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="0 0 280 280">
+  <!-- Outer ring: 280px, 2px amber, 40% opacity -->
+  <circle cx="140" cy="140" r="139" fill="none" stroke="#FFC24B" stroke-width="2" opacity="0.4"/>
+  <!-- Inner button: 220px circle -->
+  <defs>
+    <radialGradient id="btn-grad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#FFC24B"/>
+      <stop offset="100%" stop-color="#C98A12"/>
+    </radialGradient>
+  </defs>
+  <circle cx="140" cy="140" r="110" fill="url(#btn-grad)"/>
+</svg>

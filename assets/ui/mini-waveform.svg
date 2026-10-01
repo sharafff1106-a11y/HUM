@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 40 24">
+  <!-- 5 bars, amber, centred -->
+  <rect x="2"  y="8"  width="4" height="8"  rx="2" fill="#FFC24B"/>
+  <rect x="10" y="4"  width="4" height="16" rx="2" fill="#FFC24B"/>
+  <rect x="18" y="0"  width="4" height="24" rx="2" fill="#FFC24B"/>
+  <rect x="26" y="4"  width="4" height="16" rx="2" fill="#FFC24B"/>
+  <rect x="34" y="8"  width="4" height="8"  rx="2" fill="#FFC24B"/>
+</svg>

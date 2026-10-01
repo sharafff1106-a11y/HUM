@@ -1,0 +1,200 @@
+{
+    Tools = ordered() {
+        -- ═══ S2: HERO WAVEFORM + T2 (WAVEFORM → WORDS) ═══
+        -- Frames: f72–f192 (121 frames, ~5.04s)
+        -- Entry: waveform bars live at (960,500), timer counting, stop button
+        -- Exit: words on transcript line, waveform parked at 40% (960,260), caret blinking
+
+        Background = Background {
+            Inputs = {
+                GlobalIn = Input { Value = 72, },
+                GlobalOut = Input { Value = 192, },
+                Width = Input { Value = 1920, },
+                Height = Input { Value = 1080, },
+                TopLeftRed = Input { Value = 0.043, },
+                TopLeftGreen = Input { Value = 0.047, },
+                TopLeftBlue = Input { Value = 0.059, },
+            },
+        },
+
+        -- ─── Waveform group (48 bars) ───
+        -- f72–f120: full size at (960,500), voice-driven heights
+        -- f120–132: scale 100→40%, y 500→260, ease-out
+        -- f186–198: bars relax to dots (heights→10px)
+
+        WaveformGroup = GroupOperator {
+            -- Container for 48 bar rectangles
+            -- Each bar: 10px wide, 14px gap, rounded ends
+            -- Heights driven by waveform_keyframes.json
+            Inputs = {
+                Center = Input {
+                    SourceOp = "WaveformPos",
+                    Source = "Value",
+                },
+                Size = Input {
+                    SourceOp = "WaveformScale",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WaveformPos = Path {
+            -- f72–120: stay at (960,500)
+            -- f120–132: move to (960,260)
+            KeyFrames = {
+                [72] = { 0.5, 0.537037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [120] = { 0.5, 0.537037, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [132] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        WaveformScale = BezierSpline {
+            -- f120–132: scale 100→40%
+            KeyFrames = {
+                [72] = { 1.0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [120] = { 1.0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [132] = { 0.4, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- ─── Timer + Stop button ───
+        Timer = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "00:02", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Regular", },
+                Size = Input { Value = 0.022, },
+                Center = Input { Value = { 0.5, 0.351852 }, },
+                Red1 = Input { Value = 0.557, },
+                Green1 = Input { Value = 0.561, },
+                Blue1 = Input { Value = 0.545, },
+                Opacity = Input {
+                    SourceOp = "TimerFadeOut",
+                    Source = "Value",
+                },
+            },
+        },
+
+        TimerFadeOut = BezierSpline {
+            -- f120–125: fade out
+            KeyFrames = {
+                [72] = { 1, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [120] = { 1, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } },
+                [125] = { 0, RH = { 0.333, 0.0 }, LH = { -0.333, 0.7 } }
+            }
+        },
+
+        -- ─── Transcript words ───
+        -- Catch-up (f126–149): Pitch, deck, by, Friday, call, Sam
+        --   Spawn every 3f, each starts at waveform centre (960,260)
+        --   scale 40%, opacity 0 → move to slot on transcript line over 8f
+        --   scale→100%, opacity→100% in first 4f
+        -- Live (from f154): and, that, new, feature, idea
+        --   Same drop, start = spoken frame + 12f lag
+        -- Each word: colour secondary→primary over 6f after landing + 8f
+
+        -- Word: "Pitch"
+        WordPitch = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "Pitch", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.059, },
+                Center = Input {
+                    SourceOp = "WordPitchPos",
+                    Source = "Value",
+                },
+                Red1 = Input {
+                    SourceOp = "WordPitchR",
+                    Source = "Value",
+                },
+                Green1 = Input {
+                    SourceOp = "WordPitchG",
+                    Source = "Value",
+                },
+                Blue1 = Input {
+                    SourceOp = "WordPitchB",
+                    Source = "Value",
+                },
+                Opacity = Input {
+                    SourceOp = "WordPitchOpacity",
+                    Source = "Value",
+                },
+            },
+        },
+
+        WordPitchPos = Path {
+            -- f126: start at waveform centre (960,260)
+            -- f134: land at transcript position (0.240104, 0.296296)
+            KeyFrames = {
+                [126] = { 0.5, 0.759259, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [134] = { 0.240104, 0.296296, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        WordPitchOpacity = BezierSpline {
+            KeyFrames = {
+                [72] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [126] = { 0, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [130] = { 1, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- Colour transition: secondary→primary over 6f at landing+8f
+        WordPitchR = BezierSpline {
+            KeyFrames = {
+                [126] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [142] = { 0.557, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0.961, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+        WordPitchG = BezierSpline {
+            KeyFrames = {
+                [126] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [142] = { 0.561, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0.953, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+        WordPitchB = BezierSpline {
+            KeyFrames = {
+                [126] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [142] = { 0.545, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } },
+                [148] = { 0.933, RH = { 0.333, 0.7 }, LH = { -0.333, 0.0 } }
+            }
+        },
+
+        -- (Remaining words follow same pattern with 3f stagger for catch-up,
+        --  spoken_frame+12f for live words. See docs/layout_table.json for x positions.)
+        -- Words: deck(f129), by(f132), Friday(f135), call(f138), Sam(f141)
+        -- Live: and(f166), that(f172), new(f178), feature(f185), idea(f196)
+
+        -- ─── Caret ───
+        Caret = Background {
+            Inputs = {
+                Width = Input { Value = 2, },
+                Height = Input { Value = 56, },
+                TopLeftRed = Input { Value = 1.0, },
+                TopLeftGreen = Input { Value = 0.761, },
+                TopLeftBlue = Input { Value = 0.294, },
+                -- Blinks 12f on / 12f off (step function)
+                -- Follows last landed word + 12px gap
+            },
+        },
+
+        SmallLogo = TextPlus {
+            Inputs = {
+                StyledText = Input { Value = "hum", },
+                Font = Input { Value = "Inter", },
+                Style = Input { Value = "Medium", },
+                Size = Input { Value = 0.026, },
+                Center = Input { Value = { 0.077604, 0.898148 }, },
+                HorizontalJustificationNew = Input { Value = 0, },
+                Red1 = Input { Value = 0.961, },
+                Green1 = Input { Value = 0.953, },
+                Blue1 = Input { Value = 0.933, },
+            },
+        },
+    },
+
+    ActiveTool = "WaveformGroup",
+}
