@@ -1,0 +1,99 @@
+{
+	Tools = ordered() {
+
+		TimerText = TextPlus {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				UseFrameFormatSettings = Input { Value = 0, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				Center = Input { Value = { 0.500000, 0.351852 }, },
+				Red1 = Input { Value = 0.557, },
+				Green1 = Input { Value = 0.561, },
+				Blue1 = Input { Value = 0.545, },
+				Size = Input { Value = 0.022, },
+				Font = Input { Value = "IBM Plex Mono", },
+				Style = Input { Value = "Regular", },
+				StyledText = Input {
+					SourceOp = "TimerStyledText",
+					Source = "Value",
+				},
+				Tracking = Input { Value = 1, },
+				HorizontalJustificationNew = Input { Value = 1, },
+				VerticalJustificationNew = Input { Value = 1, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 110, -100 } },
+		},
+
+		TimerStyledText = BezierSpline {
+			SplineColor = { Red = 180, Green = 0, Blue = 0 },
+			KeyFrames = {
+				[0] = { "00:00", Flags = { Linear = true } },
+				[62] = { "00:00", Flags = { Linear = true } },
+				[86] = { "00:01", Flags = { Linear = true } },
+				[110] = { "00:02", Flags = { Linear = true } },
+				[134] = { "00:03", Flags = { Linear = true } },
+				[158] = { "00:04", Flags = { Linear = true } },
+			},
+		},
+
+		TimerMerge = Merge {
+			CtrlWZoom = false,
+			Inputs = {
+				Background = Input {
+					SourceOp = "TimerBg",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "TimerText",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+				Blend = Input {
+					SourceOp = "TimerBlend",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 330, 0 } },
+		},
+
+		TimerBg = Background {
+			CtrlWZoom = false,
+			Inputs = {
+				GlobalIn = Input { Value = 0, },
+				GlobalOut = Input { Value = 479, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+				TopLeftAlpha = Input { Value = 0, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 220, 0 } },
+		},
+
+		TimerBlend = BezierSpline {
+			SplineColor = { Red = 0, Green = 0, Blue = 180 },
+			KeyFrames = {
+				[0] = { 0, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[68] = { 0, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[76] = { 1, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[120] = { 1, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+				[125] = { 0, Flags = { { SCEF_IS_SMOOTH, SCNF_IS_SMOOTH } } },
+			},
+		},
+
+		MediaOut1 = MediaOut {
+			Inputs = {
+				Input = Input {
+					SourceOp = "TimerMerge",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 440, 0 } },
+		},
+
+	},
+	ActiveTool = "TimerText",
+}
