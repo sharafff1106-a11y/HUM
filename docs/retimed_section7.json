@@ -1,0 +1,113 @@
+{
+  "_doc": "Retimed section 7 from real voice recording (v2.wav)",
+  "_voice_duration": "5.375s (f3–f129 relative to audio start)",
+
+  "mapping": {
+    "_note": "Voice audio starts at animation f62 (spec). Audio f3 = animation f62.",
+    "audio_to_anim_offset": 59,
+    "_formula": "anim_frame = audio_frame + 59"
+  },
+
+  "word_spoken_frames": {
+    "_note": "Animation frames where each word is spoken (audio frame + 59)",
+    "Pitch":   62,
+    "deck":    66,
+    "by":      71,
+    "Friday":  77,
+    "call":    107,
+    "Sam":     115,
+    "and":     136,
+    "that":    144,
+    "new":     161,
+    "feature": 171,
+    "idea":    182
+  },
+
+  "voice_end_frame": 188,
+  "_note_voice": "Original estimate was f186, real is f188. Only 2 frames difference — excellent.",
+
+  "T2_waveform_to_words": {
+    "_note": "Waveform shrinks f120–132 (unchanged). Catch-up and live words retimed.",
+
+    "catch_up_words": {
+      "_note": "Words spoken before T2 starts (before f120): Pitch, deck, by, Friday, call, Sam",
+      "_spawn_rule": "Every 3f starting at f126",
+      "Pitch":  {"spawn": 126, "land": 134},
+      "deck":   {"spawn": 129, "land": 137},
+      "by":     {"spawn": 132, "land": 140},
+      "Friday": {"spawn": 135, "land": 143},
+      "call":   {"spawn": 138, "land": 146},
+      "Sam":    {"spawn": 141, "land": 149}
+    },
+
+    "live_words": {
+      "_note": "Words spoken during/after T2. Spawn = spoken_frame + 12f lag",
+      "and":     {"spoken": 136, "spawn": 148, "land": 156},
+      "that":    {"spoken": 144, "spawn": 156, "land": 164},
+      "new":     {"spoken": 161, "spawn": 173, "land": 181},
+      "feature": {"spoken": 171, "spawn": 183, "land": 191},
+      "idea":    {"spoken": 182, "spawn": 194, "land": 202}
+    },
+
+    "waveform_park": {
+      "_note": "Bars relax to dots when voice ends",
+      "start": 188,
+      "end": 200
+    },
+
+    "caret_blink_start": 126,
+    "caret_blink_end": 214
+  },
+
+  "T3_words_to_cards": {
+    "_note": "Underline timing unchanged from spec (f152/180/210). Voice-dependent: word groups must have landed before underline.",
+    "_validation": {
+      "card1_last_word_lands": "Friday lands f143 → underline f152 ✓ (9f gap)",
+      "card2_last_word_lands": "Sam lands f149 → underline f180 ✓ (31f gap)",
+      "card3_last_word_lands": "idea lands f202 → underline f210 ✓ (8f gap)"
+    },
+
+    "card_1": {
+      "underline": [152, 158],
+      "grow": [158, 166],
+      "label_icon": [162, 168],
+      "lift": [166, 178],
+      "border_fade": [178, 190]
+    },
+    "card_2": {
+      "underline": [180, 186],
+      "grow": [186, 194],
+      "label_icon": [190, 197],
+      "lift": [194, 206],
+      "border_fade": [206, 218]
+    },
+    "card_3": {
+      "underline": [210, 216],
+      "grow": [216, 224],
+      "label_icon": [220, 227],
+      "lift": [224, 236],
+      "border_fade": [236, 248]
+    },
+
+    "transcript_cleanup": {
+      "remaining_words_slide": [168, 178],
+      "and_that_fadeout": [196, 201],
+      "new_feature_idea_slide": [198, 208],
+      "caret_fadeout": [210, 214],
+      "waveform_dots_fadeout": [236, 242]
+    }
+  },
+
+  "holds": {
+    "row_hold": [248, 276],
+    "row_hold_frames": 28,
+    "list_hold": [314, 372],
+    "list_hold_frames": 58
+  },
+
+  "summary": {
+    "voice_shift_from_estimate": "+2 frames (188 vs 186)",
+    "timing_impact": "Minimal — all holds absorb naturally. No section needs re-timing.",
+    "all_words_land_before_underlines": true
+  }
+}

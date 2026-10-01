@@ -1,0 +1,79 @@
+[
+  {
+    "word": "Pitch",
+    "start": 0.125,
+    "end": 0.292,
+    "start_frame": 3,
+    "end_frame": 7
+  },
+  {
+    "word": "deck",
+    "start": 0.292,
+    "end": 0.5,
+    "start_frame": 7,
+    "end_frame": 12
+  },
+  {
+    "word": "by",
+    "start": 0.5,
+    "end": 0.75,
+    "start_frame": 12,
+    "end_frame": 18
+  },
+  {
+    "word": "Friday",
+    "start": 0.75,
+    "end": 1.375,
+    "start_frame": 18,
+    "end_frame": 33
+  },
+  {
+    "word": "call",
+    "start": 2.0,
+    "end": 2.333,
+    "start_frame": 48,
+    "end_frame": 56
+  },
+  {
+    "word": "Sam",
+    "start": 2.333,
+    "end": 2.917,
+    "start_frame": 56,
+    "end_frame": 70
+  },
+  {
+    "word": "and",
+    "start": 3.208,
+    "end": 3.542,
+    "start_frame": 77,
+    "end_frame": 85
+  },
+  {
+    "word": "that",
+    "start": 3.542,
+    "end": 4.25,
+    "start_frame": 85,
+    "end_frame": 102
+  },
+  {
+    "word": "new",
+    "start": 4.25,
+    "end": 4.667,
+    "start_frame": 102,
+    "end_frame": 112
+  },
+  {
+    "word": "feature",
+    "start": 4.667,
+    "end": 5.125,
+    "start_frame": 112,
+    "end_frame": 123
+  },
+  {
+    "word": "idea",
+    "start": 5.125,
+    "end": 5.375,
+    "start_frame": 123,
+    "end_frame": 129
+  }
+]
