@@ -1,0 +1,493 @@
+{
+	Tools = ordered() {
+
+		-- ════════════════════════════════════════════════
+		-- S1: INTRO + T1 (f0–f72)
+		-- Fully wired — drag into Fusion node editor
+		-- ════════════════════════════════════════════════
+
+		-- ─── BACKGROUND ───
+		Background1 = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 72, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["TopLeftRed"] = Input { Value = 0.043, },
+				["TopLeftGreen"] = Input { Value = 0.047, },
+				["TopLeftBlue"] = Input { Value = 0.059, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 0, 100 } },
+		},
+
+		-- ─── BACKGROUND LIFT (radial lighter centre) ───
+		BgLiftMask = EllipseMask {
+			Inputs = {
+				Center = Input { Value = { 0.5, 0.5 }, },
+				Width = Input { Value = 0.729, },
+				Height = Input { Value = 1.296, },
+				SoftEdge = Input { Value = 0.8, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 0, -50 } },
+		},
+
+		BgLift = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 72, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["TopLeftRed"] = Input { Value = 0.078, },
+				["TopLeftGreen"] = Input { Value = 0.086, },
+				["TopLeftBlue"] = Input { Value = 0.106, },
+				EffectMask = Input {
+					SourceOp = "BgLiftMask",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 110, -50 } },
+		},
+
+		BgMerge = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "Background1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "BgLift",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+				Blend = Input {
+					SourceOp = "BgLiftBlend",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 220, 100 } },
+		},
+
+		BgLiftBlend = BezierSpline {
+			SplineColor = { Red = 0, Green = 200, Blue = 0 },
+			KeyFrames = {
+				[0] = { 0, RH = { 4.0, 0.7 } },
+				[12] = { 1, LH = { 8.0, 1 } },
+			},
+		},
+
+		-- ─── RECORD BUTTON (220px amber circle at centre) ───
+		ButtonMask = EllipseMask {
+			Inputs = {
+				Center = Input { Value = { 0.5, 0.5 }, },
+				Width = Input { Value = 0.114583, },
+				Height = Input { Value = 0.203704, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 330, -100 } },
+		},
+
+		ButtonFill = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 72, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["TopLeftRed"] = Input { Value = 1.0, },
+				["TopLeftGreen"] = Input { Value = 0.761, },
+				["TopLeftBlue"] = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "ButtonMask",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 440, -100 } },
+		},
+
+		ButtonMerge = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "BgMerge",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "ButtonFill",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+				Center = Input { Value = { 0.5, 0.537037 }, },
+				Blend = Input {
+					SourceOp = "ButtonBlend",
+					Source = "Value",
+				},
+				Size = Input {
+					SourceOp = "ButtonScale",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 440, 100 } },
+		},
+
+		ButtonBlend = BezierSpline {
+			SplineColor = { Red = 200, Green = 100, Blue = 0 },
+			KeyFrames = {
+				[0] = { 0 },
+				[6] = { 0, RH = { 10.0, 0.7 } },
+				[18] = { 1, LH = { 14.0, 1 } },
+			},
+		},
+
+		ButtonScale = BezierSpline {
+			SplineColor = { Red = 200, Green = 100, Blue = 0 },
+			KeyFrames = {
+				[0] = { 0.8 },
+				[6] = { 0.8, RH = { 10.0, 0.94 } },
+				[18] = { 1.0, LH = { 14.0, 1.0 } },
+				[46] = { 1.0 },
+				[48] = { 0.92, LH = { 47.33, 0.92 } },
+				[48] = { 0.92, RH = { 49.0, 0.976 } },
+				[51] = { 1.0, LH = { 50.0, 1.0 } },
+			},
+		},
+
+		-- ─── BUTTON RING (280px, 2px amber outline, 40% opacity) ───
+		RingMask = EllipseMask {
+			Inputs = {
+				Center = Input { Value = { 0.5, 0.5 }, },
+				Width = Input { Value = 0.145833, },
+				Height = Input { Value = 0.259259, },
+				SoftEdge = Input { Value = 0.0, },
+				BorderWidth = Input { Value = -0.9857, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 550, -100 } },
+		},
+
+		RingFill = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 72, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["TopLeftRed"] = Input { Value = 1.0, },
+				["TopLeftGreen"] = Input { Value = 0.761, },
+				["TopLeftBlue"] = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "RingMask",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 660, -100 } },
+		},
+
+		RingMerge = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "ButtonMerge",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "RingFill",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+				Center = Input { Value = { 0.5, 0.537037 }, },
+				Blend = Input {
+					SourceOp = "RingBlend",
+					Source = "Value",
+				},
+				Size = Input {
+					SourceOp = "RingScale",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 660, 100 } },
+		},
+
+		RingBlend = BezierSpline {
+			SplineColor = { Red = 200, Green = 150, Blue = 0 },
+			KeyFrames = {
+				[0] = { 0 },
+				[6] = { 0, RH = { 10.0, 0.28 } },
+				[18] = { 0.4, LH = { 14.0, 0.4 } },
+				[49] = { 0.4 },
+				[63] = { 0, LH = { 58.34, 0 } },
+			},
+		},
+
+		RingScale = BezierSpline {
+			SplineColor = { Red = 200, Green = 150, Blue = 0 },
+			KeyFrames = {
+				[0] = { 0.8 },
+				[6] = { 0.8, RH = { 10.0, 0.94 } },
+				[18] = { 1.0, RH = { 22.0, 1.0 } },
+				[30] = { 1.06, LH = { 26.0, 1.06 } },
+				[42] = { 1.0, LH = { 38.0, 1.0 } },
+				[49] = { 1.0 },
+				[63] = { 1.6, LH = { 58.34, 1.6 } },
+			},
+		},
+
+		-- ─── SMALL LOGO "hum" (top-left) ───
+		SmallLogo = TextPlus {
+			Inputs = {
+				GlobalOut = Input { Value = 72, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["StyledText"] = Input { Value = "hum", },
+				Font = Input { Value = "Inter", },
+				Style = Input { Value = "Medium", },
+				Size = Input { Value = 0.026, },
+				Tracking = Input { Value = 1.0, },
+				Center = Input { Value = { 0.077604, 0.898148 }, },
+				["HorizontalJustificationNew"] = Input { Value = 0, },
+				Red1 = Input { Value = 0.961, },
+				Green1 = Input { Value = 0.953, },
+				Blue1 = Input { Value = 0.933, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 770, -50 } },
+		},
+
+		LogoMerge = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "RingMerge",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "SmallLogo",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+				Blend = Input {
+					SourceOp = "LogoBlend",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 880, 100 } },
+		},
+
+		LogoBlend = BezierSpline {
+			SplineColor = { Red = 0, Green = 200, Blue = 200 },
+			KeyFrames = {
+				[0] = { 0 },
+				[4] = { 0, RH = { 6.66, 0.7 } },
+				[12] = { 1, LH = { 9.34, 1 } },
+			},
+		},
+
+		-- ─── "Tap to record" LABEL ───
+		TapLabel = TextPlus {
+			Inputs = {
+				GlobalOut = Input { Value = 72, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["StyledText"] = Input { Value = "Tap to record", },
+				Font = Input { Value = "Inter", },
+				Style = Input { Value = "Regular", },
+				Size = Input { Value = 0.022, },
+				Center = Input {
+					SourceOp = "TapLabelCenter",
+					Source = "Value",
+				},
+				Red1 = Input { Value = 0.557, },
+				Green1 = Input { Value = 0.561, },
+				Blue1 = Input { Value = 0.545, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 990, -50 } },
+		},
+
+		TapLabelCenter = XYPath {
+			ShowKeyPoints = false,
+			ShowHandles = false,
+			KeyFrames = {
+				[10] = { 0.5, 0.353704, RH = { 0.5, 0.357407 } },
+				[18] = { 0.5, 0.361111, LH = { 0.5, 0.361111 } },
+			},
+		},
+
+		TapMerge = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "LogoMerge",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "TapLabel",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+				Blend = Input {
+					SourceOp = "TapBlend",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1100, 100 } },
+		},
+
+		TapBlend = BezierSpline {
+			SplineColor = { Red = 100, Green = 200, Blue = 100 },
+			KeyFrames = {
+				[0] = { 0 },
+				[10] = { 0, RH = { 12.66, 0.7 } },
+				[18] = { 1, LH = { 15.34, 1 } },
+				[49] = { 1 },
+				[49] = { 1, RH = { 50.66, 1 } },
+				[54] = { 0, LH = { 52.34, 0.3 } },
+			},
+		},
+
+		-- ─── TIMER "00:00" ───
+		Timer = TextPlus {
+			Inputs = {
+				GlobalOut = Input { Value = 72, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["StyledText"] = Input { Value = "00:00", },
+				Font = Input { Value = "Inter", },
+				Style = Input { Value = "Regular", },
+				Size = Input { Value = 0.022, },
+				Center = Input { Value = { 0.5, 0.351852 }, },
+				Red1 = Input { Value = 0.557, },
+				Green1 = Input { Value = 0.561, },
+				Blue1 = Input { Value = 0.545, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1210, -100 } },
+		},
+
+		TimerMerge = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "TapMerge",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "Timer",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+				Blend = Input {
+					SourceOp = "TimerBlend",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1320, 100 } },
+		},
+
+		TimerBlend = BezierSpline {
+			SplineColor = { Red = 100, Green = 100, Blue = 200 },
+			KeyFrames = {
+				[0] = { 0 },
+				[68] = { 0, RH = { 69.33, 0.7 } },
+				[72] = { 1, LH = { 70.67, 1 } },
+			},
+		},
+
+		-- ─── STOP BUTTON (64px circle, amber outline + white square) ───
+		StopCircleMask = EllipseMask {
+			Inputs = {
+				Center = Input { Value = { 0.5, 0.277778 }, },
+				Width = Input { Value = 0.033333, },
+				Height = Input { Value = 0.059259, },
+				SoftEdge = Input { Value = 0.0, },
+				BorderWidth = Input { Value = -0.9375, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1430, -150 } },
+		},
+
+		StopCircleFill = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 72, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["TopLeftRed"] = Input { Value = 1.0, },
+				["TopLeftGreen"] = Input { Value = 0.761, },
+				["TopLeftBlue"] = Input { Value = 0.294, },
+				EffectMask = Input {
+					SourceOp = "StopCircleMask",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1430, -50 } },
+		},
+
+		StopSquareMask = RectangleMask {
+			Inputs = {
+				Center = Input { Value = { 0.5, 0.277778 }, },
+				Width = Input { Value = 0.010417, },
+				Height = Input { Value = 0.018519, },
+				CornerRadius = Input { Value = 0.2, },
+			},
+			ViewInfo = OperatorInfo { Pos = { 1540, -150 } },
+		},
+
+		StopSquareFill = Background {
+			Inputs = {
+				GlobalOut = Input { Value = 72, },
+				Width = Input { Value = 1920, },
+				Height = Input { Value = 1080, },
+				["TopLeftRed"] = Input { Value = 0.961, },
+				["TopLeftGreen"] = Input { Value = 0.953, },
+				["TopLeftBlue"] = Input { Value = 0.933, },
+				EffectMask = Input {
+					SourceOp = "StopSquareMask",
+					Source = "Mask",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1540, -50 } },
+		},
+
+		StopMerge1 = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "TimerMerge",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "StopCircleFill",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+				Blend = Input {
+					SourceOp = "StopBlend",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1540, 50 } },
+		},
+
+		StopMerge2 = Merge {
+			Inputs = {
+				Background = Input {
+					SourceOp = "StopMerge1",
+					Source = "Output",
+				},
+				Foreground = Input {
+					SourceOp = "StopSquareFill",
+					Source = "Output",
+				},
+				PerformDepthMerge = Input { Value = 0, },
+				Blend = Input {
+					SourceOp = "StopBlend",
+					Source = "Value",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1650, 100 } },
+		},
+
+		StopBlend = BezierSpline {
+			SplineColor = { Red = 100, Green = 100, Blue = 200 },
+			KeyFrames = {
+				[0] = { 0 },
+				[68] = { 0, RH = { 69.33, 0.7 } },
+				[72] = { 1, LH = { 70.67, 1 } },
+			},
+		},
+
+		-- ─── FINAL OUTPUT ───
+		MediaOut1 = MediaOut {
+			Inputs = {
+				Input = Input {
+					SourceOp = "StopMerge2",
+					Source = "Output",
+				},
+			},
+			ViewInfo = OperatorInfo { Pos = { 1800, 100 } },
+		},
+	},
+
+	ActiveTool = "StopMerge2",
+}
