@@ -9,7 +9,7 @@ export default function Faq() {
   return (
     <section id="faq" className="mx-auto grid max-w-[1400px] gap-14 px-5 py-28 md:px-10 md:py-40 lg:grid-cols-[1fr_1.3fr]">
       <Reveal>
-        <Chapter n="05">FAQ</Chapter>
+        <Chapter n="06">FAQ</Chapter>
         <h2 className="mt-6 font-display text-[clamp(3rem,7vw,6.5rem)] leading-[0.95] tracking-[-0.02em]">Before you <em className="text-blue">ask.</em></h2>
       </Reveal>
       <div className="border-t border-line">

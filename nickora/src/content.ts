@@ -10,6 +10,7 @@ export const chapters = [
   { id: "struggles", label: "Stuck?" },
   { id: "process", label: "Process" },
   { id: "promise", label: "Promise" },
+  { id: "journal-teaser", label: "Journal" },
   { id: "faq", label: "FAQ" },
   { id: "contact", label: "Contact" },
 ];

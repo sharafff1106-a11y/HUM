@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Wordmark } from "./ui";
 
-const links = [["Services", "#services"], ["Process", "#process"], ["Promise", "#promise"], ["FAQ", "#faq"], ["Contact", "#contact"]];
+const links = [["Services", "#services"], ["Process", "#process"], ["Promise", "#promise"], ["Journal", "#journal"], ["Contact", "#contact"]];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);

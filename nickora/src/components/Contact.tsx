@@ -21,7 +21,7 @@ export default function Contact() {
     <>
       <section id="contact" className="mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-40">
         <Reveal>
-          <Chapter n="06">Contact</Chapter>
+          <Chapter n="07">Contact</Chapter>
           <h2 className="mt-6 font-display text-[clamp(3.4rem,10vw,10rem)] leading-[0.88] tracking-[-0.03em]">Let's write your<br /><em className="text-blue">next chapter.</em></h2>
         </Reveal>
         <div className="mt-20 grid gap-16 lg:grid-cols-[1fr_1.4fr]">
@@ -52,10 +52,6 @@ export default function Contact() {
           </Reveal>
         </div>
       </section>
-      <footer className="mx-auto flex max-w-[1400px] flex-col gap-4 border-t border-line px-5 pb-24 pt-8 text-[13px] text-muted md:flex-row md:justify-between md:px-10">
-        <span className="font-semibold tracking-[0.32em] text-ink">NICKORA</span>
-        <span>© {new Date().getFullYear()} Nickora · Guidance, mentoring and editing</span>
-      </footer>
     </>
   );
 }
