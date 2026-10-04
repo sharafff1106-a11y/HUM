@@ -3,7 +3,7 @@ import Pages from "./Pages";
 import { PillButton } from "./ui";
 
 const line = (text: string, delay: number, cls = "") => (
-  <span className="block overflow-hidden pb-[0.08em]">
+  <span className="block overflow-hidden pb-[0.16em] -mb-[0.08em]">
     <motion.span className={`block ${cls}`} initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}>{text}</motion.span>
   </span>
 );
@@ -29,7 +29,7 @@ export default function Hero() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="flex flex-col items-start gap-6 lg:items-end">
           <p className="max-w-xs text-[15px] leading-relaxed text-muted lg:text-right">Expert guidance from admission to PhD. Your work, made stronger.</p>
           <div className="flex flex-wrap items-center gap-6">
-            <PillButton href="#contact">Free consultation</PillButton>
+            <PillButton href="#contact">Talk with Nick</PillButton>
             <a href="#services" className="border-b border-ink/40 pb-1 text-[15px] transition hover:border-blue hover:text-blue">Our services</a>
           </div>
         </motion.div>

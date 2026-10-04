@@ -188,8 +188,8 @@ export default function ArticlePage({ slug }: { slug: string }) {
 
             <div className="mt-14 rounded-2xl bg-ink p-8 text-white md:p-10">
               <p className="label text-white/50">Still stuck?</p>
-              <p className="mt-4 font-display text-[2.4rem] leading-[1.05]">Talk it through with a Nickora mentor.</p>
-              <div className="mt-8"><PillButton href="#contact" dark={false}>Free consultation</PillButton></div>
+              <p className="mt-4 font-display text-[2.4rem] leading-[1.05]">Talk it through with Nick.</p>
+              <div className="mt-8"><PillButton href="#contact" dark={false}>Talk with Nick</PillButton></div>
             </div>
           </article>
         </div>

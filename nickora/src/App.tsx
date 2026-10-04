@@ -3,6 +3,7 @@ import Lenis from "lenis";
 import { setLenis, useRoute } from "./router";
 import Cursor from "./components/Cursor";
 import Nav from "./components/Nav";
+import Intro from "./components/Intro";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
 import Struggles from "./components/Struggles";
@@ -33,7 +34,8 @@ export default function App() {
   return (
     <>
       <Cursor />
-      <Nav />
+      <Intro />
+      <Nav page={route.page} />
       {route.page === "home" && (
         <>
           <main>
