@@ -1,49 +1,70 @@
-// All editable copy lives here. Replace placeholders (contact details) before launch.
+// All editable copy lives here. Email and logo are placeholders to replace later.
 export const brand = {
   name: "Nickora",
-  tagline: "Where ambition meets academic mastery.",
-  email: "hello@nickora.com", // TODO: replace
-  whatsapp: "", // TODO: e.g. "447000000000" to enable the WhatsApp button
+  email: "info@nickora.com",
+  whatsapp: "", // e.g. "447000000000" to show a WhatsApp link
 };
 
 export const services = [
-  { id: "consultancy", icon: "Compass", title: "Educational Consultancy", tag: "Strategy", text: "A clear academic roadmap — course, country, university and funding — built around your goals, not a template." },
-  { id: "admissions", icon: "GraduationCap", title: "University & Admissions Guidance", tag: "Admissions", text: "Shortlisting, statements of purpose, CVs, references and interview prep so every application tells a sharp, honest story." },
-  { id: "mentoring", icon: "Sparkles", title: "Academic Mentoring", tag: "1:1", text: "A dedicated mentor who builds your study system, critical thinking and confidence from first lecture to final grade." },
-  { id: "research", icon: "Telescope", title: "Research & Dissertation Guidance", tag: "PhD · Masters", text: "From a fuzzy idea to a defensible proposal: research questions, methodology, literature mapping, structure and viva readiness." },
-  { id: "proofreading", icon: "PenLine", title: "Academic Proofreading & Editing", tag: "Polish", text: "Line-by-line clarity, tone, flow and argument checks — your voice, sharpened to a scholarly standard." },
-  { id: "referencing", icon: "Quote", title: "Referencing & Document Formatting", tag: "Precision", text: "Flawless APA, Harvard, MLA, Chicago, IEEE or Vancouver. Templates, citations, tables and layouts that meet university rules." },
+  { id: "consultancy", title: "Educational Consultancy", for: "Undecided students, career changers", text: "A clear academic roadmap covering course, country, university and funding, built around your goals instead of a template." },
+  { id: "admissions", title: "University & Admissions Guidance", for: "Undergraduate, Masters and PhD applicants", text: "Shortlisting, statements of purpose, CVs, references, interview preparation and a realistic deadline plan." },
+  { id: "mentoring", title: "Academic Mentoring", for: "Anyone who feels behind or overwhelmed", text: "A dedicated mentor who builds your study system, critical thinking and confidence, one week at a time." },
+  { id: "research", title: "Research & Dissertation Guidance", for: "Masters and PhD researchers", text: "From a vague idea to a defensible proposal: research questions, methodology, literature mapping, structure and viva readiness." },
+  { id: "proofreading", title: "Academic Proofreading & Editing", for: "Writers who need a final, careful read", text: "Line-by-line work on grammar, clarity, tone and argument flow. Your words and your voice, made sharper." },
+  { id: "referencing", title: "Referencing & Document Formatting", for: "Anyone losing marks on format", text: "APA, Harvard, MLA, Chicago, IEEE or Vancouver. Citations, tables, headings and layouts that meet your university's rules." },
 ] as const;
 
-export const disciplines = [
-  "Engineering", "Medicine & Health", "Business & Management", "Law", "Computer Science & AI", "Psychology",
-  "Education", "Economics", "Architecture", "Humanities", "Natural Sciences", "Social Sciences", "Nursing", "Public Policy",
+// Real, recurring student problems, each tied to the service that answers it.
+export const struggles = [
+  { id: "topic", label: "I can't pick a topic", feel: "Every idea feels too big, too small, or already done. The deadline keeps getting closer.", fix: "We run a structured topic session: your interests, your course rules and what is actually researchable, then narrow it to a question you can defend.", service: "Research & Dissertation Guidance" },
+  { id: "feedback", label: "My supervisor's feedback is unclear", feel: "“Be more critical.” “Restructure.” You read it three times and still don't know what to change.", fix: "Bring the comments to your mentor. We translate each one into a short, concrete task list, so you know exactly what to do next.", service: "Academic Mentoring" },
+  { id: "lit", label: "My literature review is just summaries", feel: "You've read forty papers and written forty paragraphs, but there's no argument holding them together.", fix: "We teach you to group sources by theme, compare authors, and find the gap your own study fills.", service: "Research & Dissertation Guidance" },
+  { id: "method", label: "Methodology and statistics confuse me", feel: "You don't know whether to go qualitative or quantitative, or how to justify your choice to a panel.", fix: "We walk through design choices, sampling and analysis so that you can explain every decision in your own words.", service: "Research & Dissertation Guidance" },
+  { id: "english", label: "Writing in English is holding me back", feel: "Your ideas are strong, but your writing doesn't show it, and marks are lost on style.", fix: "Careful editing with explanations, so each correction teaches you something and your voice stays yours.", service: "Academic Proofreading & Editing" },
+  { id: "ref", label: "I keep losing marks on referencing", feel: "Missing DOIs, mixed styles and inconsistent headings. Small errors that cost real grades.", fix: "We format your citations and document to your institution's exact guide, and show you how to keep it consistent.", service: "Referencing & Document Formatting" },
+  { id: "ai", label: "I'm scared of being wrongly flagged", feel: "Detection software is imperfect, and honest students have been accused. You aren't sure what help is allowed.", fix: "We keep a clear record of your drafts and thinking, and only provide help your university permits. Your work stays your own.", service: "Academic Mentoring" },
+  { id: "apply", label: "I don't know which university fits me", feel: "Hundreds of programmes, different deadlines and visa rules. You can't tell which choices are realistic.", fix: "We build a shortlist around your profile, budget and goals, then plan the timeline from statement to visa.", service: "University & Admissions Guidance" },
+] as const;
+
+export const steps = [
+  { title: "A free first conversation", text: "Tell us where you are and what's worrying you. No pressure and no obligation." },
+  { title: "A written plan and fixed scope", text: "You see exactly what's included, how long it takes and what it costs, in writing, before anything starts." },
+  { title: "Guided work", text: "Regular mentoring, honest feedback and careful editing. You do the thinking; we sharpen it." },
+  { title: "Independence", text: "You finish able to do it again without us. That is the measure of good guidance." },
 ];
 
-export const journey = [
-  { n: "01", title: "Discover", text: "A free conversation about where you are, where you want to be, and what stands in the way." },
-  { n: "02", title: "Map", text: "We design a personalised plan with milestones, deadlines and the right level of support." },
-  { n: "03", title: "Build", text: "Weekly mentoring, drafts and feedback loops. You do the thinking; we sharpen it." },
-  { n: "04", title: "Refine", text: "Editing, referencing and formatting to the exact standard your institution expects." },
-  { n: "05", title: "Succeed", text: "Submit, interview or defend with confidence — and keep a mentor for what comes next." },
+export const dos = [
+  "Explain, coach and give honest feedback on your own work",
+  "Edit and proofread so your words read clearly",
+  "Format references and documents to your university's guide",
+  "Keep your drafts, ideas and details strictly confidential",
+  "Tell you plainly when we can't help or aren't the right fit",
+];
+export const donts = [
+  "Write your assignment, essay or dissertation for you",
+  "Submit any work under your name",
+  "Promise grades, admission or visa outcomes",
+  "Share your files or personal details with anyone",
+  "Hide costs or add fees after you've agreed a scope",
 ];
 
 export const phdStages = [
-  { label: "Idea", note: "Find a question worth a doctorate" },
-  { label: "Proposal", note: "Scope, novelty, feasibility" },
-  { label: "Literature", note: "Map the field, find the gap" },
-  { label: "Method", note: "Design that stands up to scrutiny" },
+  { label: "Idea", note: "Find a question worth a degree" },
+  { label: "Proposal", note: "Scope, novelty and feasibility" },
+  { label: "Literature", note: "Map the field and find the gap" },
+  { label: "Method", note: "A design that survives scrutiny" },
   { label: "Analysis", note: "Make sense of the evidence" },
-  { label: "Thesis", note: "Structure, argument, flow" },
-  { label: "Viva", note: "Rehearse, defend, celebrate" },
+  { label: "Thesis", note: "Structure, argument and flow" },
+  { label: "Viva", note: "Rehearse, defend and finish" },
 ];
 
 export const styles = ["APA 7", "Harvard", "MLA 9", "Chicago", "IEEE", "Vancouver", "OSCOLA", "AMA"];
 
 export const faqs = [
-  { q: "Do you write assignments or dissertations for students?", a: "No. Nickora is guidance, mentoring and editing — we help you think, structure, improve and present your own work. That keeps you safe under university academic-integrity rules and makes you a stronger scholar." },
-  { q: "Which levels and subjects do you support?", a: "Undergraduate, Masters and PhD across most disciplines. If a niche topic needs a specialist, we match you with the right mentor or tell you honestly it's not a fit." },
-  { q: "How does editing differ from proofreading?", a: "Proofreading fixes grammar, spelling and punctuation. Editing goes deeper: clarity, argument flow, tone and structure — always keeping your voice." },
-  { q: "Can you help with applications abroad?", a: "Yes. We guide course and university selection, statements, CVs, references, interview preparation and the overall timeline for study destinations worldwide." },
-  { q: "How do I get started?", a: "Send a short message below. We'll reply with a free discovery call slot and a first-step plan." },
+  { q: "Will you write my assignment or dissertation?", a: "No. We guide, mentor and edit. Work submitted under your name must be yours, and universities treat bought work as misconduct. Our job is to make you capable of producing strong work." },
+  { q: "Is proofreading and editing allowed by my university?", a: "Most universities allow proofreading for language and clarity but restrict changes to content or argument. Rules vary, so we ask for your institution's policy and work inside it." },
+  { q: "What if my work is flagged by AI-detection software?", a: "Detectors make mistakes. We keep your drafts and feedback as evidence of your own process, and we advise you on how to respond to a query calmly and correctly." },
+  { q: "Which levels and subjects do you cover?", a: "Undergraduate, Masters and PhD across most disciplines. If a niche topic needs a specialist, we say so honestly rather than take your money." },
+  { q: "How much does it cost?", a: "Every plan is quoted in writing before you commit, with a clear scope. The first conversation is free." },
+  { q: "Is my information private?", a: "Yes. Your drafts, ideas and personal details are never shared or reused." },
 ];

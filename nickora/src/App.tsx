@@ -1,11 +1,11 @@
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import Marquee from "./components/Marquee";
+import Struggles from "./components/Struggles";
 import Services from "./components/Services";
 import Process from "./components/Process";
-import Research from "./components/Research";
+import Standards from "./components/Standards";
 import Craft from "./components/Craft";
-import Promise from "./components/Promise";
+import Research from "./components/Research";
 import Faq from "./components/Faq";
 import Contact from "./components/Contact";
 
@@ -15,12 +15,12 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <Marquee />
+        <Struggles />
         <Services />
         <Process />
-        <Research />
+        <Standards />
         <Craft />
-        <Promise />
+        <Research />
         <Faq />
         <Contact />
       </main>

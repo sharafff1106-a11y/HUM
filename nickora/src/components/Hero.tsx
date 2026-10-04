@@ -1,86 +1,92 @@
-import { motion, useScroll, useTransform } from "motion/react";
-import { ArrowRight, BookOpenCheck, FileCheck2, Telescope } from "lucide-react";
-import Constellation from "./Constellation";
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import { ArrowRight, Check, Lock, PenLine, ShieldCheck, FileText } from "lucide-react";
 
-const words = ["Shape", "your", "academic"];
+const tasks = [
+  "Open each section with one clear claim",
+  "Replace two summaries with a comparison of authors",
+  "Move the methods justification before the results",
+];
+
+const trust = [
+  { Icon: ShieldCheck, t: "Your work stays yours", s: "Guidance and editing, never ghostwriting" },
+  { Icon: Lock, t: "Strictly confidential", s: "Drafts and details are never shared" },
+  { Icon: FileText, t: "Written scope first", s: "Know what's included before you commit" },
+  { Icon: PenLine, t: "Free first conversation", s: "No obligation, no pressure" },
+];
 
 export default function Hero() {
-  const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 600], [0, 120]);
-  const fade = useTransform(scrollY, [0, 500], [1, 0]);
+  const [done, setDone] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setDone((d) => (d >= tasks.length ? 0 : d + 1)), 1700);
+    return () => clearInterval(id);
+  }, []);
 
   return (
-    <section id="top" className="grain relative isolate flex min-h-[100svh] items-center overflow-hidden">
-      <div className="aurora absolute -left-1/4 top-[-20%] -z-10 h-[70vw] w-[70vw] rounded-full bg-iris/25 blur-[140px]" />
-      <div className="aurora absolute -right-1/4 bottom-[-30%] -z-10 h-[60vw] w-[60vw] rounded-full bg-aqua/15 blur-[140px]" style={{ animationDelay: "-9s" }} />
-      <Constellation />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#070b1a_85%)]" />
-
-      <motion.div style={{ y, opacity: fade }} className="relative mx-auto grid w-full max-w-7xl items-center gap-16 px-6 pb-20 pt-36 lg:grid-cols-[1.25fr_1fr]">
+    <section id="top" className="relative overflow-hidden bg-snow pt-[76px]">
+      <div className="pointer-events-none absolute -right-40 -top-40 h-[640px] w-[640px] rounded-full bg-tint blur-3xl" />
+      <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 pt-16 md:px-8 lg:grid-cols-[1.15fr_1fr] lg:pb-28 lg:pt-24">
         <div>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-            className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.24em] text-paper/80 backdrop-blur">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-aqua" /> Education consultancy · Admissions to PhD
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-7 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald">
+            Private academic consultancy
           </motion.p>
-
-          <h1 className="font-display text-[clamp(3rem,8.2vw,7.5rem)] font-light leading-[0.95] tracking-[-0.03em]">
-            {words.map((w, i) => (
-              <span key={w} className="mr-[0.25em] inline-block overflow-hidden align-top">
-                <motion.span className="inline-block" initial={{ y: "110%" }} animate={{ y: 0 }}
-                  transition={{ duration: 1, delay: 0.3 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}>{w}</motion.span>
-              </span>
-            ))}
-            <br />
-            <span className="inline-block overflow-hidden align-top">
-              <motion.span className="text-gradient inline-block pr-3 italic" initial={{ y: "110%" }} animate={{ y: 0 }}
-                transition={{ duration: 1.1, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}>future,</motion.span>
-            </span>
-            <span className="inline-block overflow-hidden align-top">
-              <motion.span className="inline-block" initial={{ y: "110%" }} animate={{ y: 0 }}
-                transition={{ duration: 1, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}>with clarity.</motion.span>
-            </span>
-          </h1>
-
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2, duration: 0.8 }}
-            className="mt-10 max-w-xl text-lg leading-relaxed text-paper/70">
-            Nickora guides students and researchers from university admissions to PhD defence — mentoring, research
-            support, editing and flawless referencing, tailored to you.
+          <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-[clamp(3.1rem,7.4vw,6.6rem)] leading-[0.98] tracking-[-0.02em] text-ink">
+            Get unstuck.<br />Stay original.<br /><em className="text-emerald">Finish strong.</em>
+          </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.8 }}
+            className="mt-8 max-w-xl text-lg leading-relaxed text-slate">
+            Nickora supports students and researchers through admissions, dissertations, editing and referencing. We coach you
+            to do your best work. We never do it for you.
           </motion.p>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.4, duration: 0.8 }}
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.8 }}
             className="mt-10 flex flex-wrap items-center gap-4">
-            <a href="#contact" className="group inline-flex items-center gap-3 rounded-full bg-gold px-7 py-4 font-semibold text-ink transition hover:bg-paper">
-              Start with a free consultation
-              <ArrowRight className="transition group-hover:translate-x-1" size={18} />
+            <a href="#contact" className="group inline-flex items-center gap-3 rounded-full bg-emerald px-8 py-4 font-semibold text-white shadow-[0_12px_30px_-10px_rgba(10,133,103,.7)] transition hover:bg-emerald-dark">
+              Book a free consultation <ArrowRight size={18} className="transition group-hover:translate-x-1" />
             </a>
-            <a href="#services" className="rounded-full border border-white/20 px-7 py-4 font-medium text-paper transition hover:border-gold hover:text-gold">Explore services</a>
+            <a href="#struggles" className="rounded-full border border-ink/15 bg-white px-8 py-4 font-semibold text-ink transition hover:border-ink">What are you stuck on?</a>
           </motion.div>
+          <p className="mt-8 text-sm text-slate">Undergraduate · Masters · PhD · International applicants</p>
         </div>
 
-        {/* Floating glass "orbit" cards */}
-        <div className="relative mx-auto hidden h-[480px] w-full max-w-md lg:block" aria-hidden>
-          <motion.div animate={{ rotate: 360 }} transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-4 rounded-full border border-dashed border-white/15" />
-          <motion.div animate={{ rotate: -360 }} transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-20 rounded-full border border-gold/20" />
-          <div className="absolute left-1/2 top-1/2 grid h-28 w-28 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gold font-display text-5xl text-ink shadow-[0_0_80px_rgba(244,184,96,.55)]">N</div>
-          {[
-            { Icon: Telescope, t: "PhD Research", s: "Proposal → Viva", cls: "-left-6 top-[46%]", d: 0 },
-            { Icon: FileCheck2, t: "Proofread", s: "Clear. Precise. Yours.", cls: "right-0 top-[20%]", d: 1.2 },
-            { Icon: BookOpenCheck, t: "Citations", s: "APA · Harvard · IEEE", cls: "bottom-4 left-6", d: 2.4 },
-          ].map(({ Icon, t, s, cls, d }) => (
-            <motion.div key={t} animate={{ y: [0, -14, 0] }} transition={{ duration: 6, repeat: Infinity, delay: d, ease: "easeInOut" }}
-              className={`absolute ${cls} flex items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.07] px-4 py-3 shadow-2xl backdrop-blur-xl`}>
-              <span className="grid h-10 w-10 place-items-center rounded-xl bg-gold/15 text-gold"><Icon size={20} /></span>
-              <span><b className="block text-sm font-semibold">{t}</b><span className="text-xs text-paper/60">{s}</span></span>
-            </motion.div>
+        {/* Product-style preview: unclear feedback turned into a plan */}
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="relative mx-auto w-full max-w-lg">
+          <div className="rounded-3xl border border-line bg-white p-6 shadow-[0_40px_80px_-30px_rgba(11,26,59,.3)] md:p-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate">Supervisor feedback</p>
+            <p className="mt-3 rounded-2xl bg-snow p-4 font-display text-2xl italic leading-snug text-ink/80">“The argument isn't clear. Restructure Chapter 3.”</p>
+            <div className="my-5 flex items-center gap-3 text-emerald">
+              <span className="h-px flex-1 bg-line" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em]">Your Nickora plan</span>
+              <span className="h-px flex-1 bg-line" />
+            </div>
+            <ul className="space-y-3">
+              {tasks.map((t, i) => (
+                <li key={t} className="flex items-start gap-3">
+                  <span className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border transition-all duration-500 ${i < done ? "border-emerald bg-emerald text-white" : "border-line text-transparent"}`}>
+                    <Check size={14} strokeWidth={3} />
+                  </span>
+                  <span className={`text-[15px] leading-snug transition ${i < done ? "text-slate line-through decoration-slate/40" : "text-ink"}`}>{t}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex items-center justify-between border-t border-line pt-4 text-xs text-slate">
+              <span>Illustrative example</span>
+              <span className="font-semibold text-emerald">{Math.min(done, tasks.length)} of {tasks.length} done</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="relative border-t border-line bg-white">
+        <ul className="mx-auto grid max-w-7xl gap-6 px-5 py-8 sm:grid-cols-2 md:px-8 lg:grid-cols-4">
+          {trust.map(({ Icon, t, s }) => (
+            <li key={t} className="flex items-start gap-3">
+              <Icon size={22} className="mt-0.5 shrink-0 text-emerald" strokeWidth={1.7} />
+              <span><b className="block text-sm font-semibold">{t}</b><span className="text-[13px] text-slate">{s}</span></span>
+            </li>
           ))}
-        </div>
-      </motion.div>
-
-      <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-paper/40 md:flex">
-        Scroll
-        <span className="h-10 w-px bg-gradient-to-b from-gold to-transparent" />
+        </ul>
       </div>
     </section>
   );

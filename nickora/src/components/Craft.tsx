@@ -23,48 +23,46 @@ export default function Craft() {
   const [edited, setEdited] = useState(false);
 
   return (
-    <section id="craft" className="grain relative bg-paper py-32 text-ink">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="craft" className="bg-snow py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-5 md:px-8">
         <Reveal className="max-w-3xl">
-          <Eyebrow dark>The craft</Eyebrow>
-          <h2 className="mt-6 font-display text-5xl font-light leading-[1.05] tracking-tight md:text-7xl">
-            Details are where <span className="italic text-[#b8741a]">grades are won.</span>
-          </h2>
+          <Eyebrow>The craft</Eyebrow>
+          <h2 className="mt-5 font-display text-5xl leading-[1.02] tracking-tight md:text-7xl">Small details decide grades.</h2>
         </Reveal>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-2">
-          <Reveal className="rounded-3xl bg-white p-8 shadow-[0_30px_80px_-30px_rgba(7,11,26,.25)] md:p-10">
-            <div className="flex items-center justify-between">
-              <h3 className="font-display text-3xl">Editing, felt.</h3>
-              <button onClick={() => setEdited(!edited)} role="switch" aria-checked={edited}
-                className={`relative h-10 w-[150px] rounded-full text-xs font-semibold transition ${edited ? "bg-ink text-gold" : "bg-ink/10 text-ink/60"}`}>
-                <span className={`absolute top-1 h-8 w-[70px] rounded-full bg-gold transition-all ${edited ? "left-[76px]" : "left-1"}`} />
-                <span className="absolute left-0 top-3 z-10 w-[75px] text-center text-ink">Raw</span>
-                <span className={`absolute right-0 top-3 z-10 w-[75px] text-center ${edited ? "text-ink" : "text-ink/60"}`}>Polished</span>
-              </button>
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
+          <Reveal className="rounded-3xl border border-line bg-white p-8 md:p-10">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <h3 className="font-display text-3xl">Editing, in your own voice</h3>
+              <div role="group" aria-label="Before or after editing" className="inline-flex rounded-full bg-snow p-1 text-sm font-semibold">
+                {[false, true].map((v) => (
+                  <button key={String(v)} onClick={() => setEdited(v)} aria-pressed={edited === v}
+                    className={`rounded-full px-5 py-2 transition ${edited === v ? "bg-ink text-white" : "text-slate"}`}>{v ? "Edited" : "Draft"}</button>
+                ))}
+              </div>
             </div>
             <motion.p key={String(edited)} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              className={`mt-8 font-display text-2xl leading-relaxed ${edited ? "text-ink" : "text-ink/55 line-through decoration-red-400/70 decoration-1"}`}>
+              className={`mt-8 min-h-[130px] font-display text-[1.7rem] leading-relaxed ${edited ? "text-ink" : "text-slate"}`}>
               {edited ? after : before}
             </motion.p>
-            <p className="mt-6 font-mono text-xs uppercase tracking-widest text-ink/50">
-              {edited ? "Grammar · agreement · precision · citation" : "6 issues detected — flip the switch"}
+            <p className="mt-4 text-[13px] font-semibold uppercase tracking-[0.14em] text-slate">
+              {edited ? "Agreement, precision, punctuation, citation fixed" : "6 issues, press Edited to see the fix"}
             </p>
           </Reveal>
 
-          <Reveal delay={0.1} className="rounded-3xl bg-ink p-8 text-paper shadow-[0_30px_80px_-30px_rgba(7,11,26,.6)] md:p-10">
-            <h3 className="font-display text-3xl">One source, any style.</h3>
+          <Reveal delay={0.08} className="rounded-3xl bg-navy p-8 text-white md:p-10">
+            <h3 className="font-display text-3xl">One source, any style</h3>
             <div className="mt-6 flex flex-wrap gap-2">
               {styles.map((s) => (
                 <button key={s} onClick={() => setStyle(s)} aria-pressed={s === style}
-                  className={`rounded-full border px-4 py-1.5 text-sm transition ${s === style ? "border-gold bg-gold text-ink" : "border-white/20 text-paper/70 hover:border-gold"}`}>{s}</button>
+                  className={`rounded-full border px-4 py-1.5 text-sm font-medium transition ${s === style ? "border-mint bg-mint text-ink" : "border-white/20 text-white/75 hover:border-white/50"}`}>{s}</button>
               ))}
             </div>
-            <motion.p key={style} initial={{ opacity: 0, filter: "blur(6px)" }} animate={{ opacity: 1, filter: "blur(0px)" }}
-              className="mt-8 min-h-[120px] rounded-2xl border border-white/10 bg-white/5 p-5 font-mono text-[13px] leading-relaxed text-paper/85">
+            <motion.p key={style} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+              className="mt-8 min-h-[130px] rounded-2xl bg-white/[0.06] p-5 text-[15px] leading-relaxed text-white/90 ring-1 ring-white/10">
               {sample[style]}
             </motion.p>
-            <p className="mt-4 text-sm text-paper/50">Illustrative example. We format your real bibliography to your institution's exact guide.</p>
+            <p className="mt-4 text-sm text-white/50">Illustrative example. We format your real bibliography to your institution's exact guide.</p>
           </Reveal>
         </div>
       </div>
