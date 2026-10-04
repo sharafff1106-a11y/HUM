@@ -3,27 +3,34 @@
 @theme {
   --font-display: "Instrument Serif", Georgia, serif;
   --font-sans: "Manrope", system-ui, sans-serif;
-  --color-snow: #f6f8fb;
-  --color-ink: #0a1530;
-  --color-navy: #0b1a3b;
-  --color-navy-2: #14264f;
-  --color-slate: #56627f;
-  --color-line: #e2e7f0;
-  --color-emerald: #0a8567;
-  --color-emerald-dark: #086b53;
-  --color-mint: #6fdcb9;
-  --color-tint: #e7f4ef;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-paper: #f6f5f1;
+  --color-card: #ffffff;
+  --color-ink: #111318;
+  --color-muted: #6c707a;
+  --color-line: #e3e1da;
+  --color-blue: #2a3ad1;
+  --color-blue-soft: #e8eafb;
 }
 
-html { scroll-behavior: smooth; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 body {
-  background: #ffffff;
+  background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-::selection { background: var(--color-emerald); color: #fff; }
-:focus-visible { outline: 2px solid var(--color-emerald); outline-offset: 3px; }
+::selection { background: var(--color-blue); color: #fff; }
+:focus-visible { outline: 2px solid var(--color-blue); outline-offset: 3px; }
 
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (pointer: fine) {
+  body, a, button, [role="tab"] { cursor: none; }
+  input, textarea, select { cursor: text; }
+}
+
+.label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; }
+.marquee { animation: marquee 38s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee { animation: none; } }

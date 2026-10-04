@@ -1,32 +1,37 @@
 import { motion, type HTMLMotionProps } from "motion/react";
 import type { ReactNode } from "react";
+import { ArrowRight } from "lucide-react";
 
 // Slides up on view; stays readable if the observer never fires.
 export function Reveal({ children, delay = 0, className, ...rest }: { children: ReactNode; delay?: number } & HTMLMotionProps<"div">) {
   return (
-    <motion.div
-      initial={{ opacity: 0.25, y: 22 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-      {...rest}
-    >
+    <motion.div initial={{ opacity: 0.2, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }} className={className} {...rest}>
       {children}
     </motion.div>
   );
 }
 
-export function Eyebrow({ children, light = false }: { children: ReactNode; light?: boolean }) {
+export function Chapter({ n, children }: { n: string; children: ReactNode }) {
+  return <p className="label text-muted">{n} — {children}</p>;
+}
+
+export function Wordmark() {
   return (
-    <span className={`text-[12px] font-semibold uppercase tracking-[0.2em] ${light ? "text-mint" : "text-emerald"}`}>{children}</span>
+    <a href="#top" aria-label="Nickora home" className="leading-none">
+      <span className="block text-[17px] font-semibold tracking-[0.32em]">NICKORA</span>
+      <span className="mt-1 block text-[12px] text-muted">Education Consultancy</span>
+    </a>
   );
 }
 
-export function Wordmark({ light = false, className = "" }: { light?: boolean; className?: string }) {
+export function PillButton({ href, children, dark = true }: { href: string; children: ReactNode; dark?: boolean }) {
   return (
-    <a href="#top" aria-label="Nickora home" className={`font-display text-[1.75rem] leading-none tracking-tight ${light ? "text-white" : "text-ink"} ${className}`}>
-      Nickora
+    <a href={href} className={`group inline-flex items-center gap-4 rounded-full border py-2 pl-7 pr-2 text-[15px] font-medium transition ${dark ? "border-ink bg-ink text-white hover:bg-blue hover:border-blue" : "border-line bg-card text-ink hover:border-ink"}`}>
+      {children}
+      <span className="grid h-11 w-11 place-items-center rounded-full bg-blue text-white transition group-hover:bg-white group-hover:text-blue">
+        <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
+      </span>
     </a>
   );
 }
