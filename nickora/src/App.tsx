@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 import { setLenis, useRoute } from "./router";
+import { usePageHead } from "./seo";
 import Cursor from "./components/Cursor";
 import Nav from "./components/Nav";
 import Intro from "./components/Intro";
@@ -20,6 +21,7 @@ import ArticlePage from "./components/ArticlePage";
 
 export default function App() {
   const route = useRoute();
+  usePageHead(route);
 
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;

@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import Pages from "./Pages";
 import { PillButton } from "./ui";
+import { sec } from "../router";
 
 const line = (text: string, delay: number, cls = "") => (
   <span className="block overflow-hidden pb-[0.16em] -mb-[0.08em]">
@@ -29,8 +30,8 @@ export default function Hero() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="flex flex-col items-start gap-6 lg:items-end">
           <p className="max-w-xs text-[15px] leading-relaxed text-muted lg:text-right">Expert guidance from admission to PhD. Your work, made stronger.</p>
           <div className="flex flex-wrap items-center gap-6">
-            <PillButton href="#contact">Talk with Nick</PillButton>
-            <a href="#services" className="border-b border-ink/40 pb-1 text-[15px] transition hover:border-blue hover:text-blue">Our services</a>
+            <PillButton href={sec("contact")}>Talk with Nick</PillButton>
+            <a href={sec("services")} className="border-b border-ink/40 pb-1 text-[15px] transition hover:border-blue hover:text-blue">Our services</a>
           </div>
         </motion.div>
       </div>

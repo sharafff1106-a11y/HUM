@@ -1,6 +1,7 @@
 import { motion, type HTMLMotionProps } from "motion/react";
 import type { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
+import { sec } from "../router";
 
 // Slides up on view; stays readable if the observer never fires.
 export function Reveal({ children, delay = 0, className, ...rest }: { children: ReactNode; delay?: number } & HTMLMotionProps<"div">) {
@@ -18,7 +19,7 @@ export function Chapter({ n, children }: { n: string; children: ReactNode }) {
 
 export function Wordmark() {
   return (
-    <a href="#top" aria-label="Nickora home" className="leading-none">
+    <a href={sec("top")} aria-label="Nickora home" className="leading-none">
       <span className="block text-[17px] font-semibold tracking-[0.32em]">NICKORA</span>
       <span className="mt-1 block text-[12px] text-muted">Education Consultancy</span>
     </a>

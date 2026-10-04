@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { articles, categories, readTime } from "../articles";
 import { PillButton } from "./ui";
+import { article } from "../router";
 
 export default function Journal() {
   const [cat, setCat] = useState("All");
@@ -31,7 +32,7 @@ export default function Journal() {
           <ul>
             {list.map((x, i) => (
               <li key={x.slug} onMouseEnter={() => setActive(i)}>
-                <a href={`#j-${x.slug}`} onFocus={() => setActive(i)}
+                <a href={article(x.slug)} onFocus={() => setActive(i)}
                   className={`grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b py-7 transition-colors duration-500 md:grid-cols-[60px_1fr_140px_70px] ${i === active ? "lg:border-blue" : ""} border-line`}>
                   <span className={`label ${i === active ? "text-blue" : "text-blue lg:text-muted/60"}`}>{String(i + 1).padStart(2, "0")}</span>
                   <span className={`font-display text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.05] transition-colors duration-500 ${i === active ? "text-ink" : "text-ink lg:text-ink/35"}`}>{x.title}</span>
@@ -53,7 +54,7 @@ export default function Journal() {
                   <p className="mt-5 text-[15px] leading-relaxed text-muted">{a.excerpt}</p>
                 </motion.div>
               </AnimatePresence>
-              <div className="mt-10"><PillButton href={`#j-${a.slug}`}>Read article</PillButton></div>
+              <div className="mt-10"><PillButton href={article(a.slug)}>Read article</PillButton></div>
             </div>
           )}
         </div>

@@ -4,7 +4,8 @@ import { ArrowLeft, ArrowUpRight, Check, Plus, X } from "lucide-react";
 import { articles, readTime, type Block } from "../articles";
 import { brand } from "../content";
 import { PillButton } from "./ui";
-import { scrollToAnchor } from "../router";
+import { setHead } from "../seo";
+import { HASH_MODE, JOURNAL, article, scrollToAnchor, sec } from "../router";
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
@@ -12,25 +13,21 @@ const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").repla
 function useSeo(a: (typeof articles)[number] | undefined) {
   useEffect(() => {
     if (!a) return;
-    const prevTitle = document.title;
-    document.title = `${a.title} | ${brand.name} Journal`;
-    const meta = (name: string, content: string) => {
-      let el = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
-      const created = !el;
-      if (!el) { el = document.createElement("meta"); el.name = name; document.head.appendChild(el); }
-      const prev = el.content; el.content = content;
-      return () => { if (created) el!.remove(); else el!.content = prev; };
-    };
-    const undo = [meta("description", a.metaDescription), meta("keywords", a.keywords.join(", "))];
+    setHead(`${a.title} | ${brand.name} Journal`, a.metaDescription, article(a.slug));
+    let kw = document.querySelector<HTMLMetaElement>('meta[name="keywords"]');
+    if (!kw) { kw = document.createElement("meta"); kw.name = "keywords"; document.head.appendChild(kw); }
+    kw.content = a.keywords.join(", ");
+    // Structured data is already in the pre-rendered HTML; add it only when it's missing (client-side navigation).
+    if (document.querySelector(`script[data-ld="${a.slug}"]`) || (!HASH_MODE && location.pathname === article(a.slug) && document.querySelector('script[type="application/ld+json"]'))) return;
     const faqs = a.body.flatMap((b) => (b.t === "faq" ? b.items : []));
     const ld = document.createElement("script");
-    ld.type = "application/ld+json";
+    ld.type = "application/ld+json"; ld.dataset.ld = a.slug;
     ld.text = JSON.stringify([
       { "@context": "https://schema.org", "@type": "Article", headline: a.title, description: a.metaDescription, keywords: a.keywords.join(", "), author: { "@type": "Organization", name: brand.name }, publisher: { "@type": "Organization", name: brand.name } },
       ...(faqs.length ? [{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }] : []),
     ]);
     document.head.appendChild(ld);
-    return () => { document.title = prevTitle; undo.forEach((u) => u()); ld.remove(); };
+    return () => { ld.remove(); kw!.content = ""; };
   }, [a]);
 }
 
@@ -132,7 +129,7 @@ export default function ArticlePage({ slug }: { slug: string }) {
     return (
       <main className="mx-auto max-w-3xl px-5 pb-40 pt-48">
         <h1 className="font-display text-6xl">Article not found.</h1>
-        <a href="#journal" className="mt-8 inline-block border-b border-ink pb-1">Back to the Journal</a>
+        <a href={JOURNAL} className="mt-8 inline-block border-b border-ink pb-1">Back to the Journal</a>
       </main>
     );
   }
@@ -144,7 +141,7 @@ export default function ArticlePage({ slug }: { slug: string }) {
     <>
       <div className="fixed inset-x-0 top-[78px] z-40 h-[2px]"><div className="h-full bg-blue" style={{ width: `${progress * 100}%` }} /></div>
       <main className="mx-auto max-w-[1400px] px-5 pb-24 pt-36 md:px-10 md:pt-44">
-        <a href="#journal" className="label inline-flex items-center gap-2 text-muted transition hover:text-blue"><ArrowLeft size={14} /> Journal</a>
+        <a href={JOURNAL} className="label inline-flex items-center gap-2 text-muted transition hover:text-blue"><ArrowLeft size={14} /> Journal</a>
         <header className="mt-10 max-w-5xl">
           <p className="label text-blue">{a.category} · {readTime(a)} read · Updated {a.updated}</p>
           <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -157,7 +154,7 @@ export default function ArticlePage({ slug }: { slug: string }) {
             <nav className="sticky top-32" aria-label="In this article">
               <p className="label text-muted">In this article</p>
               <ul className="mt-5 space-y-3 text-[14px]">
-                {toc.map((h) => <li key={h}><a href={`#j-${a.slug}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); scrollToAnchor(slugify(h)); }} className="text-ink/70 transition hover:text-blue">{h}</a></li>)}
+                {toc.map((h) => <li key={h}><a href={`#${slugify(h)}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); scrollToAnchor(slugify(h)); }} className="text-ink/70 transition hover:text-blue">{h}</a></li>)}
               </ul>
             </nav>
           </aside>
@@ -166,7 +163,7 @@ export default function ArticlePage({ slug }: { slug: string }) {
             <details className="mb-10 rounded-2xl border border-line bg-card p-5 lg:hidden">
               <summary className="label cursor-pointer text-muted">In this article</summary>
               <ul className="mt-4 space-y-3 text-[15px]">
-                {toc.map((h) => <li key={h}><a href={`#j-${a.slug}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); scrollToAnchor(slugify(h)); }} className="text-ink/75">{h}</a></li>)}
+                {toc.map((h) => <li key={h}><a href={`#${slugify(h)}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); scrollToAnchor(slugify(h)); }} className="text-ink/75">{h}</a></li>)}
               </ul>
             </details>
             <section className="mb-14 rounded-2xl border border-line bg-card p-7 md:p-8">
@@ -189,7 +186,7 @@ export default function ArticlePage({ slug }: { slug: string }) {
             <div className="mt-14 rounded-2xl bg-ink p-8 text-white md:p-10">
               <p className="label text-white/50">Still stuck?</p>
               <p className="mt-4 font-display text-[2.4rem] leading-[1.05]">Talk it through with Nick.</p>
-              <div className="mt-8"><PillButton href="#contact" dark={false}>Talk with Nick</PillButton></div>
+              <div className="mt-8"><PillButton href={sec("contact")} dark={false}>Talk with Nick</PillButton></div>
             </div>
           </article>
         </div>
@@ -198,7 +195,7 @@ export default function ArticlePage({ slug }: { slug: string }) {
           <p className="label text-muted">Keep reading</p>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {more.map((m) => (
-              <a key={m.slug} href={`#j-${m.slug}`} className="group rounded-2xl border border-line bg-card p-7 transition hover:border-ink/30">
+              <a key={m.slug} href={article(m.slug)} className="group rounded-2xl border border-line bg-card p-7 transition hover:border-ink/30">
                 <div className="flex justify-between"><span className="label text-blue">{m.category} · {readTime(m)}</span><ArrowUpRight size={18} className="transition group-hover:text-blue" /></div>
                 <h3 className="mt-8 font-display text-[2rem] leading-[1.05]">{m.title}</h3>
               </a>

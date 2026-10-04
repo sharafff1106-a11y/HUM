@@ -2,6 +2,7 @@
 export const brand = {
   name: "Nickora",
   email: "info@nickora.com",
+  url: "https://nickora.com", // your live domain: used for canonical links and the sitemap
 };
 
 export const chapters = [

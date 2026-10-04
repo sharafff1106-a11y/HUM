@@ -4,26 +4,27 @@ import { ArrowRight } from "lucide-react";
 import { brand } from "../content";
 import NickAvatar from "./NickAvatar";
 import { Wordmark } from "./ui";
+import { JOURNAL, sec } from "../router";
 
 type Page = "home" | "journal" | "article";
 
 const links = [
-  { n: "01", label: "Services", href: "#services", ids: ["services", "struggles"] },
-  { n: "02", label: "Process", href: "#process", ids: ["process"] },
-  { n: "03", label: "Promise", href: "#promise", ids: ["promise"] },
-  { n: "04", label: "Journal", href: "#journal", ids: ["journal-teaser"] },
-  { n: "05", label: "FAQ", href: "#faq", ids: ["faq"] },
+  { n: "01", label: "Services", key: "services", href: sec("services"), ids: ["services", "struggles"] },
+  { n: "02", label: "Process", key: "process", href: sec("process"), ids: ["process"] },
+  { n: "03", label: "Promise", key: "promise", href: sec("promise"), ids: ["promise"] },
+  { n: "04", label: "Journal", key: "journal", href: JOURNAL, ids: ["journal-teaser"] },
+  { n: "05", label: "FAQ", key: "faq", href: sec("faq"), ids: ["faq"] },
 ];
 
 // Table-of-contents entries for the mobile menu, with "page numbers" like a real book.
 const contents = [
-  { label: "Services", href: "#services", page: 3 },
-  { label: "Common struggles", href: "#struggles", page: 9 },
-  { label: "Process", href: "#process", page: 14 },
-  { label: "Our promise", href: "#promise", page: 21 },
-  { label: "Journal", href: "#journal", page: 28 },
-  { label: "FAQ", href: "#faq", page: 36 },
-  { label: "Contact", href: "#contact", page: 42 },
+  { label: "Services", href: sec("services"), page: 3 },
+  { label: "Common struggles", href: sec("struggles"), page: 9 },
+  { label: "Process", href: sec("process"), page: 14 },
+  { label: "Our promise", href: sec("promise"), page: 21 },
+  { label: "Journal", href: JOURNAL, page: 28 },
+  { label: "FAQ", href: sec("faq"), page: 36 },
+  { label: "Contact", href: sec("contact"), page: 42 },
 ];
 
 function Squiggle({ on }: { on: boolean }) {
@@ -37,7 +38,7 @@ function Squiggle({ on }: { on: boolean }) {
 
 function TalkButton({ compact = false }: { compact?: boolean }) {
   return (
-    <a href="#contact" className="group flex items-center gap-3 rounded-full border border-ink/10 bg-card py-1.5 pl-1.5 pr-2 shadow-[0_8px_24px_-12px_rgba(17,19,24,.35)] transition hover:border-ink/30">
+    <a href={sec("contact")} className="group flex items-center gap-3 rounded-full border border-ink/10 bg-card py-1.5 pl-1.5 pr-2 shadow-[0_8px_24px_-12px_rgba(17,19,24,.35)] transition hover:border-ink/30">
       <span className="transition-transform duration-300 group-hover:-rotate-6"><NickAvatar size={compact ? 34 : 38} /></span>
       {!compact && (
         <span className="leading-tight">
@@ -56,7 +57,7 @@ export default function Nav({ page }: { page: Page }) {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [hover, setHover] = useState<string | null>(null);
-  const [active, setActive] = useState<string | null>(page === "home" ? null : "#journal");
+  const [active, setActive] = useState<string | null>(page === "home" ? null : "journal");
   const { scrollY, scrollYProgress } = useScroll();
   const ink = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
@@ -69,11 +70,11 @@ export default function Nav({ page }: { page: Page }) {
 
   // Which chapter is on screen.
   useEffect(() => {
-    if (page !== "home") { setActive("#journal"); return; }
+    if (page !== "home") { setActive("journal"); return; }
     const f = () => {
       const mark = scrollY.get() + innerHeight * 0.4;
       let cur: string | null = null;
-      for (const l of links) for (const id of l.ids) { const el = document.getElementById(id); if (el && el.offsetTop <= mark) cur = l.href; }
+      for (const l of links) for (const id of l.ids) { const el = document.getElementById(id); if (el && el.offsetTop <= mark) cur = l.key; }
       const contact = document.getElementById("contact");
       if (contact && contact.offsetTop <= mark) cur = null;
       setActive(cur);
@@ -99,7 +100,7 @@ export default function Nav({ page }: { page: Page }) {
 
           <ul className="relative hidden items-center gap-1 rounded-full border border-ink/10 bg-card/80 p-1.5 shadow-[0_10px_30px_-18px_rgba(17,19,24,.4)] lg:flex" onMouseLeave={() => setHover(null)}>
             {links.map((l) => {
-              const on = active === l.href;
+              const on = active === l.key;
               return (
                 <li key={l.href} className="relative">
                   {on && <motion.span layoutId="ink-pill" className="absolute inset-0 rounded-full bg-ink" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
@@ -152,7 +153,7 @@ export default function Nav({ page }: { page: Page }) {
                   <p className="mt-1 text-[14px] text-white/60">Free first conversation</p>
                 </div>
               </div>
-              <a href="#contact" onClick={() => setOpen(false)} className="mt-6 flex items-center justify-between rounded-full bg-white px-6 py-3.5 font-medium text-ink">
+              <a href={sec("contact")} onClick={() => setOpen(false)} className="mt-6 flex items-center justify-between rounded-full bg-white px-6 py-3.5 font-medium text-ink">
                 Book your call <ArrowRight size={18} />
               </a>
               <p className="mt-4 select-all text-center text-[13px] text-white/50">{brand.email}</p>

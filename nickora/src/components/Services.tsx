@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { services } from "../content";
 import { Chapter, PillButton, Reveal } from "./ui";
+import { sec } from "../router";
 
 export default function Services() {
   const [active, setActive] = useState(0);
@@ -48,7 +49,7 @@ export default function Services() {
                 </ul>
               </motion.div>
             </AnimatePresence>
-            <div className="mt-10"><PillButton href="#contact">Enquire</PillButton></div>
+            <div className="mt-10"><PillButton href={sec("contact")}>Enquire</PillButton></div>
           </div>
         </div>
       </div>
