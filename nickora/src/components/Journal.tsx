@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { articles, categories } from "../articles";
+import { articles, categories, readTime } from "../articles";
 import { PillButton } from "./ui";
 
 export default function Journal() {
@@ -36,7 +36,7 @@ export default function Journal() {
                   <span className={`label ${i === active ? "text-blue" : "text-muted/60"}`}>{String(i + 1).padStart(2, "0")}</span>
                   <span className={`font-display text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.05] transition-colors duration-500 ${i === active ? "text-ink" : "text-ink/35"}`}>{x.title}</span>
                   <span className={`label hidden md:block ${i === active ? "text-blue" : "text-muted/60"}`}>{x.category}</span>
-                  <span className="label hidden text-right text-muted md:block">{x.read}</span>
+                  <span className="label hidden text-right text-muted md:block">{readTime(x)}</span>
                   <span className="col-span-2 mt-3 text-[15px] text-muted lg:hidden">{x.excerpt}</span>
                 </a>
               </li>
@@ -48,7 +48,7 @@ export default function Journal() {
             <div className="sticky top-32 rounded-2xl border border-line bg-card p-8">
               <AnimatePresence mode="wait">
                 <motion.div key={a.slug} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}>
-                  <div className="flex justify-between"><span className="label text-blue">● {a.category}</span><span className="label text-muted">{a.read} read</span></div>
+                  <div className="flex justify-between"><span className="label text-blue">● {a.category}</span><span className="label text-muted">{readTime(a)} read</span></div>
                   <h2 className="mt-10 font-display text-4xl leading-[1.05]">{a.title}</h2>
                   <p className="mt-5 text-[15px] leading-relaxed text-muted">{a.excerpt}</p>
                 </motion.div>
