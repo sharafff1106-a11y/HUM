@@ -4,7 +4,7 @@ import { Chapter, PillButton, Reveal } from "./ui";
 
 export default function JournalTeaser() {
   return (
-    <section id="journal-teaser" className="mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-40">
+    <section id="journal-teaser" className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
       <Reveal className="flex flex-wrap items-end justify-between gap-8">
         <div>
           <Chapter n="05">Journal</Chapter>

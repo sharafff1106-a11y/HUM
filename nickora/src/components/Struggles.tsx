@@ -6,8 +6,8 @@ import { Chapter, Reveal } from "./ui";
 export default function Struggles() {
   const [i, setI] = useState(1);
   return (
-    <section id="struggles" className="border-y border-line bg-card px-5 py-28 md:px-10 md:py-40">
-      <div className="mx-auto max-w-[1400px]">
+    <section id="struggles" className="border-y border-line bg-card py-16 md:py-24">
+      <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <Reveal>
           <Chapter n="02">Where students get stuck</Chapter>
           <h2 className="mt-6 max-w-5xl font-display text-[clamp(3rem,7vw,6.5rem)] leading-[0.95] tracking-[-0.02em]">

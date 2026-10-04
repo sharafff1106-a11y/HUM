@@ -22,7 +22,7 @@ export default function Process() {
   const go = (i: number) => { if (i !== active) { setActive(i); setCycle((c) => c + 1); } };
 
   return (
-    <section id="process" className="mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-40">
+    <section id="process" className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
       <Reveal className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-end">
         <div>
           <Chapter n="03">Process</Chapter>
@@ -32,7 +32,7 @@ export default function Process() {
       </Reveal>
 
       {/* Flow line connecting the steps */}
-      <div className="relative mt-20 hidden h-8 lg:block" aria-hidden>
+      <div className="relative mt-14 hidden h-8 lg:block" aria-hidden>
         <div className="absolute left-[12.5%] right-[12.5%] top-1/2 h-px bg-line" />
         <motion.div className="absolute left-[12.5%] top-1/2 h-[2px] -translate-y-px bg-blue" animate={{ width: `${(active / 3) * 75}%` }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} />
         {steps.map((s, i) => (

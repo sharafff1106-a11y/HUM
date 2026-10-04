@@ -194,7 +194,7 @@ export default function ArticlePage({ slug }: { slug: string }) {
           </article>
         </div>
 
-        <section className="mt-28">
+        <section className="mt-20">
           <p className="label text-muted">Keep reading</p>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {more.map((m) => (

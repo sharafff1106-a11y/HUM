@@ -19,12 +19,12 @@ export default function Contact() {
 
   return (
     <>
-      <section id="contact" className="mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-40">
+      <section id="contact" className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
         <Reveal>
           <Chapter n="07">Contact</Chapter>
           <h2 className="mt-6 font-display text-[clamp(3.4rem,10vw,10rem)] leading-[0.88] tracking-[-0.03em]">Let's write your<br /><em className="text-blue">next chapter.</em></h2>
         </Reveal>
-        <div className="mt-20 grid gap-16 lg:grid-cols-[1fr_1.4fr]">
+        <div className="mt-14 grid gap-16 lg:grid-cols-[1fr_1.4fr]">
           <Reveal className="space-y-8">
             <p className="max-w-sm text-[16px] leading-relaxed text-muted">Tell us where you are. We'll reply with a free first conversation.</p>
             <div><p className="label text-muted">Email</p><p className="mt-2 select-all font-display text-3xl">{brand.email}</p></div>

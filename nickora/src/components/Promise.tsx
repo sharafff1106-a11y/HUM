@@ -17,8 +17,8 @@ export default function Promise() {
   const done = Math.round(p * edits.length);
 
   return (
-    <section id="promise" ref={ref} className="bg-ink px-5 py-28 text-white md:px-10 md:py-40">
-      <div className="mx-auto grid max-w-[1400px] items-center gap-16 lg:grid-cols-[1fr_1.1fr]">
+    <section id="promise" ref={ref} className="bg-ink py-16 text-white md:py-24">
+      <div className="mx-auto grid max-w-[1400px] px-5 md:px-10 items-center gap-16 lg:grid-cols-[1fr_1.1fr]">
         <Reveal className="rounded-2xl bg-white/[0.04] p-7 ring-1 ring-white/10 md:p-9">
           <div className="flex justify-between"><span className="label text-white/50">Scroll to review the draft</span><span className="label text-white/50"><b className="font-normal text-[#8f9bff]">{Math.round(p * 100)}%</b> reviewed</span></div>
           <div className="mt-8 space-y-5 rounded-xl bg-paper p-6 text-ink md:p-8">

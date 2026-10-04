@@ -10,7 +10,7 @@ export default function Journal() {
   const a = list[Math.min(active, list.length - 1)];
 
   return (
-    <main className="mx-auto max-w-[1400px] px-5 pb-28 pt-40 md:px-10 md:pb-40 md:pt-48">
+    <main className="mx-auto max-w-[1400px] px-5 pb-20 pt-36 md:px-10 md:pb-28 md:pt-44">
       <p className="label text-muted">Journal · {articles.length} articles</p>
       <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         className="mt-6 font-display text-[clamp(3.4rem,9.6vw,9rem)] leading-[0.92] tracking-[-0.025em]">

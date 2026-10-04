@@ -10,7 +10,7 @@ const line = (text: string, delay: number, cls = "") => (
 
 export default function Hero() {
   return (
-    <section id="top" className="relative flex flex-col justify-end overflow-hidden px-5 pb-16 pt-24 md:min-h-[100svh] md:px-10 md:pb-24 md:pt-28">
+    <section id="top" className="relative flex flex-col justify-end overflow-hidden px-5 pb-16 pt-24 md:min-h-[100svh] md:px-10 md:pb-16 md:pt-28">
       <div className="relative -mx-2 mb-4 h-[min(62vw,330px)] md:absolute md:left-1/2 md:top-[86px] md:mx-0 md:mb-0 md:h-[42vh] lg:h-[50vh] md:w-[min(820px,96vw)] md:-translate-x-1/2">
         <Pages />
         <p className="label pointer-events-none absolute right-2 top-3 hidden text-muted md:block">Click the book to turn the page</p>
