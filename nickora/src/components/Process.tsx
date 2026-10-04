@@ -1,16 +1,26 @@
-import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import { steps } from "../content";
 import { Chapter, Reveal } from "./ui";
+import { FinishScene, PlanScene, TalkScene, WorkScene } from "./ProcessScenes";
 
-const S = { fill: "none", stroke: "currentColor", strokeWidth: 1.2 } as const;
-const art: ReactNode[] = [
-  <svg viewBox="0 0 200 110" className="h-full w-full"><path {...S} d="M40 30h70a12 12 0 0 1 12 12v18a12 12 0 0 1-12 12H66l-16 14V72H40a12 12 0 0 1-12-12V42a12 12 0 0 1 12-12Z" /><path {...S} d="M132 44h28a10 10 0 0 1 10 10v14a10 10 0 0 1-10 10h-4v12l-14-12h-10" opacity=".5" /></svg>,
-  <svg viewBox="0 0 200 110" className="h-full w-full"><rect {...S} x="60" y="14" width="80" height="84" rx="4" />{[34, 52, 70].map((y) => <g key={y}><path {...S} d={`M72 ${y}l4 4 8-8`} /><path {...S} d={`M92 ${y}h36`} opacity=".5" /></g>)}</svg>,
-  <svg viewBox="0 0 200 110" className="h-full w-full">{[24, 38, 52, 66, 80].map((y, k) => <path key={y} {...S} d={`M40 ${y}h${k === 2 ? 70 : 120}`} opacity={k === 2 ? 1 : 0.35} />)}<path {...S} d="M114 58l40-30 8 8-40 30-12 4z" /></svg>,
-  <svg viewBox="0 0 200 110" className="h-full w-full"><path {...S} d="M100 22 40 46l60 24 60-24z" /><path {...S} d="M64 56v20c0 8 16 14 36 14s36-6 36-14V56" /><path {...S} d="M160 46v28" opacity=".5" /></svg>,
-];
+const scenes = [TalkScene, PlanScene, WorkScene, FinishScene];
+const STEP_MS = 4200;
 
 export default function Process() {
+  const [active, setActive] = useState(0);
+  const [cycle, setCycle] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  // Walk through the steps like a flow explainer; hovering a card takes over.
+  useEffect(() => {
+    if (paused) return;
+    const id = setTimeout(() => { setActive((a) => (a + 1) % steps.length); setCycle((c) => c + 1); }, STEP_MS);
+    return () => clearTimeout(id);
+  }, [active, paused, cycle]);
+
+  const go = (i: number) => { if (i !== active) { setActive(i); setCycle((c) => c + 1); } };
+
   return (
     <section id="process" className="mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-40">
       <Reveal className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-end">
@@ -20,17 +30,44 @@ export default function Process() {
         </div>
         <p className="max-w-sm text-[15px] leading-relaxed text-muted lg:justify-self-end">Four steps. You always know what happens next and what it costs.</p>
       </Reveal>
-      <ol className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+      {/* Flow line connecting the steps */}
+      <div className="relative mt-20 hidden h-8 lg:block" aria-hidden>
+        <div className="absolute left-[12.5%] right-[12.5%] top-1/2 h-px bg-line" />
+        <motion.div className="absolute left-[12.5%] top-1/2 h-[2px] -translate-y-px bg-blue" animate={{ width: `${(active / 3) * 75}%` }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} />
         {steps.map((s, i) => (
-          <Reveal key={s.title} delay={i * 0.08}>
-            <li className="group h-full rounded-2xl border border-line bg-card p-7 transition hover:-translate-y-1 hover:border-ink/30">
-              <div className="flex items-center justify-between"><span className="label text-muted">Step 0{i + 1}</span><span className="h-1.5 w-1.5 rounded-full bg-blue" /></div>
-              <h3 className="mt-6 font-display text-5xl">{s.title}</h3>
-              <div className="my-7 h-28 rounded-xl bg-paper p-3 text-ink/70 transition group-hover:text-blue">{art[i]}</div>
-              <p className="text-[15px] leading-relaxed text-muted">{s.text}</p>
-            </li>
-          </Reveal>
+          <button key={s.title} onClick={() => go(i)} className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ left: `${12.5 + i * 25}%` }} tabIndex={-1}>
+            <span className={`grid h-8 w-8 place-items-center rounded-full border font-mono text-[10px] transition-colors duration-500 ${i <= active ? "border-blue bg-blue text-white" : "border-line bg-paper text-muted"}`}>{String(i + 1).padStart(2, "0")}</span>
+            {i === active && <span className="absolute inset-0 animate-ping rounded-full bg-blue/30" />}
+          </button>
         ))}
+      </div>
+
+      <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-6 lg:grid-cols-4" onMouseLeave={() => setPaused(false)}>
+        {steps.map((s, i) => {
+          const Scene = scenes[i];
+          const on = i === active;
+          return (
+            <Reveal key={s.title} delay={i * 0.08}>
+              <li onMouseEnter={() => { setPaused(true); go(i); }} onClick={() => go(i)}
+                className={`h-full cursor-pointer rounded-2xl border bg-card p-7 transition-all duration-500 ${on ? "-translate-y-1 border-blue/50 shadow-[0_24px_50px_-28px_rgba(42,58,209,.55)]" : "border-line"}`}>
+                <div className="flex items-center justify-between">
+                  <span className={`label transition-colors ${on ? "text-blue" : "text-muted"}`}>Step 0{i + 1}</span>
+                  <span className={`h-1.5 w-1.5 rounded-full transition-colors ${on ? "bg-blue" : "bg-line"}`} />
+                </div>
+                <h3 className="mt-6 font-display text-5xl">{s.title}</h3>
+                <div className={`my-7 h-36 overflow-hidden rounded-xl p-2 transition-colors duration-500 ${on ? "bg-blue-soft/50" : "bg-paper"}`}>
+                  <Scene key={on ? `run-${cycle}` : "rest"} run={on} />
+                </div>
+                <p className="text-[15px] leading-relaxed text-muted">{s.text}</p>
+                <div className="mt-6 h-[2px] overflow-hidden rounded bg-line/60">
+                  {on && !paused && <motion.div key={cycle} className="h-full bg-blue" initial={{ width: "0%" }} animate={{ width: "100%" }} transition={{ duration: STEP_MS / 1000, ease: "linear" }} />}
+                  {on && paused && <div className="h-full w-full bg-blue" />}
+                </div>
+              </li>
+            </Reveal>
+          );
+        })}
       </ol>
     </section>
   );
