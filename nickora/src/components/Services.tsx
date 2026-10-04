@@ -23,11 +23,11 @@ export default function Services() {
           <ul>
             {services.map((x, i) => (
               <li key={x.id} onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)}
-                className={`relative grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b py-7 transition-all duration-500 md:grid-cols-[60px_1fr_auto] ${i === active ? "border-blue" : "border-line"}`}>
-                <span className={`label transition ${i === active ? "text-blue" : "text-muted/60"}`}>0{i + 1}</span>
+                className={`relative grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b py-7 transition-all duration-500 md:grid-cols-[60px_1fr_auto] ${i === active ? "lg:border-blue" : ""} border-line`}>
+                <span className={`label transition ${i === active ? "text-blue" : "text-blue lg:text-muted/60"}`}>0{i + 1}</span>
                 <button onClick={() => setActive(i)} className="text-left">
-                  <span className={`font-display text-[clamp(2.4rem,4.6vw,4.2rem)] leading-none tracking-[-0.02em] transition-colors duration-500 ${i === active ? "text-ink" : "text-ink/25"}`}>{x.title}</span>
-                  <span className={`mt-2 block font-display text-[clamp(1.2rem,1.8vw,1.6rem)] italic transition-colors duration-500 ${i === active ? "text-blue" : "text-ink/20"}`}>{x.line}</span>
+                  <span className={`font-display text-[clamp(2.4rem,4.6vw,4.2rem)] leading-none tracking-[-0.02em] transition-colors duration-500 ${i === active ? "text-ink" : "text-ink lg:text-ink/25"}`}>{x.title}</span>
+                  <span className={`mt-2 block font-display text-[clamp(1.2rem,1.8vw,1.6rem)] italic transition-colors duration-500 ${i === active ? "text-blue" : "text-blue lg:text-ink/20"}`}>{x.line}</span>
                 </button>
                 <span className={`label hidden transition md:block ${i === active ? "text-ink" : "text-muted/50"}`}>{x.for}</span>
                 <p className="col-span-2 mt-3 text-[15px] text-muted lg:hidden">{x.text}</p>

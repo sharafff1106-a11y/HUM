@@ -10,11 +10,12 @@ const line = (text: string, delay: number, cls = "") => (
 
 export default function Hero() {
   return (
-    <section id="top" className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden px-5 pb-20 pt-28 md:px-10 md:pb-24">
-      <div className="absolute left-1/2 top-[84px] h-[30vh] w-[min(820px,96vw)] -translate-x-1/2 md:top-[86px] md:h-[50vh]">
+    <section id="top" className="relative flex flex-col justify-end overflow-hidden px-5 pb-16 pt-24 md:min-h-[100svh] md:px-10 md:pb-24 md:pt-28">
+      <div className="relative -mx-2 mb-4 h-[min(62vw,330px)] md:absolute md:left-1/2 md:top-[86px] md:mx-0 md:mb-0 md:h-[42vh] lg:h-[50vh] md:w-[min(820px,96vw)] md:-translate-x-1/2">
         <Pages />
         <p className="label pointer-events-none absolute right-2 top-3 hidden text-muted md:block">Click the book to turn the page</p>
       </div>
+      <p className="label -mt-1 mb-8 text-center text-muted md:hidden">Tap the book to turn the page</p>
 
       <div className="relative mx-auto grid w-full max-w-[1400px] items-end gap-10 lg:grid-cols-[1fr_auto]">
         <div>

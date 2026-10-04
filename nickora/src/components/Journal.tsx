@@ -32,9 +32,9 @@ export default function Journal() {
             {list.map((x, i) => (
               <li key={x.slug} onMouseEnter={() => setActive(i)}>
                 <a href={`#j-${x.slug}`} onFocus={() => setActive(i)}
-                  className={`grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b py-7 transition-colors duration-500 md:grid-cols-[60px_1fr_140px_70px] ${i === active ? "border-blue" : "border-line"}`}>
-                  <span className={`label ${i === active ? "text-blue" : "text-muted/60"}`}>{String(i + 1).padStart(2, "0")}</span>
-                  <span className={`font-display text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.05] transition-colors duration-500 ${i === active ? "text-ink" : "text-ink/35"}`}>{x.title}</span>
+                  className={`grid grid-cols-[44px_1fr] items-baseline gap-x-4 border-b py-7 transition-colors duration-500 md:grid-cols-[60px_1fr_140px_70px] ${i === active ? "lg:border-blue" : ""} border-line`}>
+                  <span className={`label ${i === active ? "text-blue" : "text-blue lg:text-muted/60"}`}>{String(i + 1).padStart(2, "0")}</span>
+                  <span className={`font-display text-[clamp(1.8rem,3vw,2.8rem)] leading-[1.05] transition-colors duration-500 ${i === active ? "text-ink" : "text-ink lg:text-ink/35"}`}>{x.title}</span>
                   <span className={`label hidden md:block ${i === active ? "text-blue" : "text-muted/60"}`}>{x.category}</span>
                   <span className="label hidden text-right text-muted md:block">{readTime(x)}</span>
                   <span className="col-span-2 mt-3 text-[15px] text-muted lg:hidden">{x.excerpt}</span>

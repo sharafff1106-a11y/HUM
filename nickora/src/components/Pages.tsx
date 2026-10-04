@@ -145,7 +145,7 @@ export default function Pages() {
     const draw = (now: number) => {
       yaw += (tYaw - yaw) * 0.05; pitch += (tPitch - pitch) * 0.05; peek += (peekT - peek) * 0.08;
       if (!reduce && turnStart < 0 && now - lastTurn > IDLE) turn();
-      U = Math.min(w * 0.33, h / 2.25); cx = w / 2; cy = h - U * 0.98;
+      U = Math.min(w * (w < 600 ? 0.4 : 0.33), h / 2.25); cx = w / 2; cy = h - U * 0.98;
       base(); ctx.clearRect(0, 0, w, h);
 
       // Desk shadow

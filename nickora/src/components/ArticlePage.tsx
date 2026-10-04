@@ -162,7 +162,13 @@ export default function ArticlePage({ slug }: { slug: string }) {
             </nav>
           </aside>
 
-          <article className="max-w-[700px]">
+          <article className="min-w-0 max-w-[700px]">
+            <details className="mb-10 rounded-2xl border border-line bg-card p-5 lg:hidden">
+              <summary className="label cursor-pointer text-muted">In this article</summary>
+              <ul className="mt-4 space-y-3 text-[15px]">
+                {toc.map((h) => <li key={h}><a href={`#j-${a.slug}`} onClick={(e) => { e.preventDefault(); e.stopPropagation(); scrollToAnchor(slugify(h)); }} className="text-ink/75">{h}</a></li>)}
+              </ul>
+            </details>
             <section className="mb-14 rounded-2xl border border-line bg-card p-7 md:p-8">
               <p className="label text-blue">Key takeaways</p>
               <ul className="mt-5 space-y-3">
